@@ -1,0 +1,114 @@
+Configuration	GAS_ALARM_BOARD
+STM32CubeMX 	4.22.0
+Date	08/16/2017
+MCU	STM32F100VBTx
+
+
+
+PERIPHERALS	MODES	FUNCTIONS	PINS
+RCC	Crystal/Ceramic Resonator	RCC_OSC_IN	OSC_IN
+RCC	Crystal/Ceramic Resonator	RCC_OSC_OUT	OSC_OUT
+SYS	Serial Wire	SYS_JTCK-SWCLK	PA14
+SYS	Serial Wire	SYS_JTMS-SWDIO	PA13
+SYS	SysTick	SYS_VS_Systick	VP_SYS_VS_Systick
+USART1	Asynchronous	USART1_RX	PA10
+USART1	Asynchronous	USART1_TX	PA9
+
+
+
+Pin Nb	PINs	FUNCTIONs	LABELs
+1	PE2	GPIO_Output	LR22
+2	PE3	GPIO_Output	LR23
+3	PE4	GPIO_Output	LR24
+12	OSC_IN	RCC_OSC_IN	
+13	OSC_OUT	RCC_OSC_OUT	
+29	PA4	GPIO_Input	S1
+30	PA5	GPIO_Input	S2
+31	PA6	GPIO_Input	S3
+32	PA7	GPIO_Input	S4
+33	PC4	GPIO_Input	S5
+34	PC5	GPIO_Input	S6
+35	PB0	GPIO_Input	S7
+36	PB1	GPIO_Input	S8
+37	PB2	GPIO_Input	S9
+38	PE7	GPIO_Input	S10
+39	PE8	GPIO_Input	S11
+40	PE9	GPIO_Input	S12
+41	PE10	GPIO_Input	S13
+42	PE11	GPIO_Input	S14
+43	PE12	GPIO_Input	S15
+44	PE13	GPIO_Input	S16
+45	PE14	GPIO_Input	S17
+46	PE15	GPIO_Input	S18
+47	PB10	GPIO_Input	S19
+48	PB11	GPIO_Input	S20
+51	PB12	GPIO_Input	S21
+52	PB13	GPIO_Input	S22
+53	PB14	GPIO_Input	S23
+54	PB15	GPIO_Input	S24
+55	PD8	GPIO_Output	PWR_SYSF
+56	PD9	GPIO_Output	ASYS_F
+57	PD10	GPIO_Output	PWR_LED
+58	PD11	GPIO_Output	RLY1
+59	PD12	GPIO_Output	Beep
+60	PD13	GPIO_Output	TESTpb
+61	PD14	GPIO_Output	MUTEpb
+62	PD15	GPIO_Output	LG6
+63	PC6	GPIO_Output	LG5
+64	PC7	GPIO_Output	LG4
+65	PC8	GPIO_Output	LG3
+66	PC9	GPIO_Output	LG2
+67	PA8	GPIO_Output	LG1
+68	PA9	USART1_TX	
+69	PA10	USART1_RX	
+72	PA13	SYS_JTMS-SWDIO	
+76	PA14	SYS_JTCK-SWCLK	
+77	PA15	GPIO_Output	LR21
+78	PC10	GPIO_Output	LR20
+79	PC11	GPIO_Output	LR19
+80	PC12	GPIO_Output	LR18
+81	PD0	GPIO_Output	LR17
+82	PD1	GPIO_Output	LR16
+83	PD2	GPIO_Output	LR15
+84	PD3	GPIO_Output	LR14
+85	PD4	GPIO_Output	LR13
+86	PD5	GPIO_Output	LR12
+87	PD6	GPIO_Output	LR11
+88	PD7	GPIO_Output	LR10
+89	PB3	GPIO_Output	LR9
+90	PB4	GPIO_Output	LR8
+91	PB5	GPIO_Output	LR7
+92	PB6	GPIO_Output	LR6
+93	PB7	GPIO_Output	LR5
+95	PB8	GPIO_Output	LR4
+96	PB9	GPIO_Output	LR3
+97	PE0	GPIO_Output	LR2
+98	PE1	GPIO_Output	LR1
+
+
+
+SOFTWARE PROJECT
+
+Project Settings : 
+Project Name : GAS_ALARM_BOARD
+Project Folder : C:\Users\Tze Wei\Desktop\GAS_ALARM_BOARD
+Toolchain / IDE : MDK-ARM V5
+Firmware Package Name and Version : STM32Cube FW_F1 V1.6.0
+
+
+Code Generation Settings : 
+STM32Cube Firmware Library Package : Copy all used libraries into the project folder
+Generate peripheral initialization as a pair of '.c/.h' files per peripheral : No
+Backup previously generated files when re-generating : No
+Delete previously generated files when not re-generated : Yes
+Set all free pins as analog (to optimize the power consumption) : No
+
+
+Toolchains Settings : 
+Compiler Optimizations : Balanced Size/Speed
+
+
+
+
+
+
