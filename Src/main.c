@@ -193,96 +193,96 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOE, LR22_Pin|LR23_Pin|LR24_Pin|LR2_Pin 
-                          |LR1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOE, CH6_2R_Pin|CH6_3R_Pin|CH6_4R_Pin|CH1_2R_Pin 
+                          |CH1_1R_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, RLY1_Pin|Beep_Pin|TESTpb_Pin|MUTEpb_Pin 
-                          |LG6_Pin|LR17_Pin|LR16_Pin|LR15_Pin 
-                          |LR14_Pin|LR13_Pin|LR12_Pin|LR11_Pin 
-                          |LR10_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOD, PWR_SYSF_Pin|ASYS_F_Pin|PWR_LED_Pin|RLY1_Pin 
+                          |Beep_Pin|TESTpb_Pin|MUTEpb_Pin|CH6_G_Pin 
+                          |CH5_1R_Pin|CH4_4R_Pin|CH4_3R_Pin|CH4_2R_Pin 
+                          |CH4_1R_Pin|CH3_4R_Pin|CH3_3R_Pin|CH3_2R_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, LG5_Pin|LG4_Pin|LG3_Pin|LG2_Pin 
-                          |LR20_Pin|LR19_Pin|LR18_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, CH5_G_Pin|CH4_G_Pin|CH3_G_Pin|CH2_G_Pin 
+                          |CH5_4R_Pin|CH5_3R_Pin|CH5_2R_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LG1_Pin|LR21_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, CH1_G_Pin|CH6_1R_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LR9_Pin|LR8_Pin|LR7_Pin|LR6_Pin 
-                          |LR5_Pin|LR4_Pin|LR3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, CH3_1R_Pin|CH2_4R_Pin|CH2_3R_Pin|CH2_2R_Pin 
+                          |CH2_1R_Pin|CH1_4R_Pin|CH1_3R_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LR22_Pin LR23_Pin LR24_Pin LR2_Pin 
-                           LR1_Pin */
-  GPIO_InitStruct.Pin = LR22_Pin|LR23_Pin|LR24_Pin|LR2_Pin 
-                          |LR1_Pin;
+  /*Configure GPIO pins : CH6_2R_Pin CH6_3R_Pin CH6_4R_Pin CH1_2R_Pin 
+                           CH1_1R_Pin */
+  GPIO_InitStruct.Pin = CH6_2R_Pin|CH6_3R_Pin|CH6_4R_Pin|CH1_2R_Pin 
+                          |CH1_1R_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : S1_Pin S2_Pin S3_Pin S4_Pin */
-  GPIO_InitStruct.Pin = S1_Pin|S2_Pin|S3_Pin|S4_Pin;
+  /*Configure GPIO pins : CH1_1_Pin CH1_2_Pin CH1_3_Pin CH1_4_Pin */
+  GPIO_InitStruct.Pin = CH1_1_Pin|CH1_2_Pin|CH1_3_Pin|CH1_4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : S5_Pin S6_Pin */
-  GPIO_InitStruct.Pin = S5_Pin|S6_Pin;
+  /*Configure GPIO pins : CH2_1_Pin CH2_2_Pin */
+  GPIO_InitStruct.Pin = CH2_1_Pin|CH2_2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : S7_Pin S8_Pin S9_Pin S19_Pin 
-                           S20_Pin S21_Pin S22_Pin S23_Pin 
-                           S24_Pin */
-  GPIO_InitStruct.Pin = S7_Pin|S8_Pin|S9_Pin|S19_Pin 
-                          |S20_Pin|S21_Pin|S22_Pin|S23_Pin 
-                          |S24_Pin;
+  /*Configure GPIO pins : CH2_3_Pin CH2_4_Pin CH3_1_Pin CH5_3_Pin 
+                           CH5_4_Pin CH6_1_Pin CH6_2_Pin CH6_3_Pin 
+                           CH6_4_Pin */
+  GPIO_InitStruct.Pin = CH2_3_Pin|CH2_4_Pin|CH3_1_Pin|CH5_3_Pin 
+                          |CH5_4_Pin|CH6_1_Pin|CH6_2_Pin|CH6_3_Pin 
+                          |CH6_4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : S10_Pin S11_Pin S12_Pin S13_Pin 
-                           S14_Pin S15_Pin S16_Pin S17_Pin 
-                           S18_Pin */
-  GPIO_InitStruct.Pin = S10_Pin|S11_Pin|S12_Pin|S13_Pin 
-                          |S14_Pin|S15_Pin|S16_Pin|S17_Pin 
-                          |S18_Pin;
+  /*Configure GPIO pins : CH3_2_Pin CH3_3_Pin CH3_4_Pin CH4_1_Pin 
+                           CH4_2_Pin CH4_3_Pin CH4_4_Pin CH5_1_Pin 
+                           CH5_2_Pin */
+  GPIO_InitStruct.Pin = CH3_2_Pin|CH3_3_Pin|CH3_4_Pin|CH4_1_Pin 
+                          |CH4_2_Pin|CH4_3_Pin|CH4_4_Pin|CH5_1_Pin 
+                          |CH5_2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : RLY1_Pin Beep_Pin TESTpb_Pin MUTEpb_Pin 
-                           LG6_Pin LR17_Pin LR16_Pin LR15_Pin 
-                           LR14_Pin LR13_Pin LR12_Pin LR11_Pin 
-                           LR10_Pin */
-  GPIO_InitStruct.Pin = RLY1_Pin|Beep_Pin|TESTpb_Pin|MUTEpb_Pin 
-                          |LG6_Pin|LR17_Pin|LR16_Pin|LR15_Pin 
-                          |LR14_Pin|LR13_Pin|LR12_Pin|LR11_Pin 
-                          |LR10_Pin;
+  /*Configure GPIO pins : PWR_SYSF_Pin ASYS_F_Pin PWR_LED_Pin RLY1_Pin 
+                           Beep_Pin TESTpb_Pin MUTEpb_Pin CH6_G_Pin 
+                           CH5_1R_Pin CH4_4R_Pin CH4_3R_Pin CH4_2R_Pin 
+                           CH4_1R_Pin CH3_4R_Pin CH3_3R_Pin CH3_2R_Pin */
+  GPIO_InitStruct.Pin = PWR_SYSF_Pin|ASYS_F_Pin|PWR_LED_Pin|RLY1_Pin 
+                          |Beep_Pin|TESTpb_Pin|MUTEpb_Pin|CH6_G_Pin 
+                          |CH5_1R_Pin|CH4_4R_Pin|CH4_3R_Pin|CH4_2R_Pin 
+                          |CH4_1R_Pin|CH3_4R_Pin|CH3_3R_Pin|CH3_2R_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LG5_Pin LG4_Pin LG3_Pin LG2_Pin 
-                           LR20_Pin LR19_Pin LR18_Pin */
-  GPIO_InitStruct.Pin = LG5_Pin|LG4_Pin|LG3_Pin|LG2_Pin 
-                          |LR20_Pin|LR19_Pin|LR18_Pin;
+  /*Configure GPIO pins : CH5_G_Pin CH4_G_Pin CH3_G_Pin CH2_G_Pin 
+                           CH5_4R_Pin CH5_3R_Pin CH5_2R_Pin */
+  GPIO_InitStruct.Pin = CH5_G_Pin|CH4_G_Pin|CH3_G_Pin|CH2_G_Pin 
+                          |CH5_4R_Pin|CH5_3R_Pin|CH5_2R_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LG1_Pin LR21_Pin */
-  GPIO_InitStruct.Pin = LG1_Pin|LR21_Pin;
+  /*Configure GPIO pins : CH1_G_Pin CH6_1R_Pin */
+  GPIO_InitStruct.Pin = CH1_G_Pin|CH6_1R_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LR9_Pin LR8_Pin LR7_Pin LR6_Pin 
-                           LR5_Pin LR4_Pin LR3_Pin */
-  GPIO_InitStruct.Pin = LR9_Pin|LR8_Pin|LR7_Pin|LR6_Pin 
-                          |LR5_Pin|LR4_Pin|LR3_Pin;
+  /*Configure GPIO pins : CH3_1R_Pin CH2_4R_Pin CH2_3R_Pin CH2_2R_Pin 
+                           CH2_1R_Pin CH1_4R_Pin CH1_3R_Pin */
+  GPIO_InitStruct.Pin = CH3_1R_Pin|CH2_4R_Pin|CH2_3R_Pin|CH2_2R_Pin 
+                          |CH2_1R_Pin|CH1_4R_Pin|CH1_3R_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
