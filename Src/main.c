@@ -113,10 +113,33 @@ int main(void)
 		HAL_GPIO_TogglePin(CH4_G_GPIO_Port, CH4_G_Pin);
 		HAL_GPIO_TogglePin(CH5_G_GPIO_Port, CH5_G_Pin);
 		HAL_GPIO_TogglePin(CH6_G_GPIO_Port, CH6_G_Pin);
+		
+		//#Toggle 1-6CH, Red LED  (4*6 = 24)
+		//#CH1R-1 - CH1R-4
+		HAL_GPIO_TogglePin(CH1_1R_GPIO_Port, CH1_1R_Pin);
+		HAL_GPIO_TogglePin(CH1_2R_GPIO_Port, CH1_2R_Pin);
+		HAL_GPIO_TogglePin(CH1_3R_GPIO_Port, CH1_3R_Pin);
+		HAL_GPIO_TogglePin(CH1_4R_GPIO_Port, CH1_4R_Pin);
+		//#CH2R-1 - CH2R-4
+		HAL_GPIO_TogglePin(CH2_1R_GPIO_Port, CH2_1R_Pin);
+		HAL_GPIO_TogglePin(CH2_2R_GPIO_Port, CH2_2R_Pin);
+		HAL_GPIO_TogglePin(CH2_3R_GPIO_Port, CH2_3R_Pin);
+		HAL_GPIO_TogglePin(CH2_4R_GPIO_Port, CH2_4R_Pin);
+		//#CH3R-1 - CH3R-4
+		HAL_GPIO_TogglePin(CH3_1R_GPIO_Port, CH3_1R_Pin);
+		HAL_GPIO_TogglePin(CH3_2R_GPIO_Port, CH3_2R_Pin);
+		HAL_GPIO_TogglePin(CH3_3R_GPIO_Port, CH3_3R_Pin);
+		HAL_GPIO_TogglePin(CH3_4R_GPIO_Port, CH3_4R_Pin);
+		//#CH4R-1 - CH4R-4
+		HAL_GPIO_TogglePin(CH4_1R_GPIO_Port, CH4_1R_Pin);
+		HAL_GPIO_TogglePin(CH4_2R_GPIO_Port, CH4_2R_Pin);
+		HAL_GPIO_TogglePin(CH4_3R_GPIO_Port, CH4_3R_Pin);
+		HAL_GPIO_TogglePin(CH4_4R_GPIO_Port, CH4_4R_Pin);
+		
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-
+	HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 
