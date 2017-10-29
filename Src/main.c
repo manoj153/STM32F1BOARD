@@ -100,6 +100,19 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		//<>TestCode Start </>
+		/*Functions : Blink all the leds on board
+		Blinks : 1000ms 
+		Each group, 1 Green Led + 4 Red Led
+		Has 6CH/aka group, Thus 30 LEDS*/
+		//<>TestCode Ends </>
+		//#Toggle 6CH, Green LED
+		HAL_GPIO_TogglePin(CH1_G_GPIO_Port, CH1_G_Pin);
+		HAL_GPIO_TogglePin(CH2_G_GPIO_Port, CH2_G_Pin);
+		HAL_GPIO_TogglePin(CH3_G_GPIO_Port, CH3_G_Pin);
+		HAL_GPIO_TogglePin(CH4_G_GPIO_Port, CH4_G_Pin);
+		HAL_GPIO_TogglePin(CH5_G_GPIO_Port, CH5_G_Pin);
+		HAL_GPIO_TogglePin(CH6_G_GPIO_Port, CH6_G_Pin);
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
