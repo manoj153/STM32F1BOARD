@@ -6,3 +6,7 @@
 <*> 1.8 < VBAT <= 3.6
 <*> (RTC) and backup registers can be supplied Vbat, :? !Vdd connected is tied 
 </POWER>
+
+<PLS BIT>
+<*>1.3.2 Programmable voltage detector (PVD)
+</PLSBIT>
