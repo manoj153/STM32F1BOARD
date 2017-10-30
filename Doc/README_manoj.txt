@@ -10,3 +10,10 @@
 <PLS BIT>
 <*>1.3.2 Programmable voltage detector (PVD)
 </PLSBIT>
+
+<InputChannels>
+<*> All inputs are pulled-up (3.3v) by default
+<*> IN<CH?>-<1-4>
+<--> Pulls to zero GND, WHEN ON-CH1-x
+
+</InputChannels>
