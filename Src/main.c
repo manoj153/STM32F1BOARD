@@ -136,6 +136,29 @@ int main(void)
 		HAL_GPIO_TogglePin(CH4_3R_GPIO_Port, CH4_3R_Pin);
 		HAL_GPIO_TogglePin(CH4_4R_GPIO_Port, CH4_4R_Pin);
 		
+		//#CH5R-1 - CH5R-4
+		HAL_GPIO_TogglePin(CH5_1R_GPIO_Port, CH5_1R_Pin);
+		HAL_GPIO_TogglePin(CH5_2R_GPIO_Port, CH5_2R_Pin);
+		HAL_GPIO_TogglePin(CH5_3R_GPIO_Port, CH5_3R_Pin);
+		HAL_GPIO_TogglePin(CH5_4R_GPIO_Port, CH5_4R_Pin);
+		
+		//#CH6R-1 - CH6-4
+		HAL_GPIO_TogglePin(CH6_1R_GPIO_Port, CH6_1R_Pin);
+		HAL_GPIO_TogglePin(CH6_2R_GPIO_Port, CH6_2R_Pin);
+		HAL_GPIO_TogglePin(CH6_3R_GPIO_Port, CH6_3R_Pin);
+		HAL_GPIO_TogglePin(CH6_4R_GPIO_Port, CH6_4R_Pin);
+		
+		//#misc. 
+		HAL_GPIO_TogglePin(ASYS_F_GPIO_Port, ASYS_F_Pin);
+		HAL_GPIO_TogglePin(PWR_SYSF_GPIO_Port, PWR_SYSF_Pin);
+		HAL_GPIO_TogglePin(Beep_GPIO_Port, Beep_Pin);
+		HAL_GPIO_TogglePin(PWR_LED_GPIO_Port, PWR_LED_Pin);
+		
+		
+		
+		
+		
+		
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
