@@ -93,7 +93,7 @@ int main(void)
   MX_USART1_UART_Init();
 
   /* USER CODE BEGIN 2 */
-
+	uint32_t GPIO;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -101,7 +101,12 @@ int main(void)
   while (1)
   {
   /* USER CODE END WHILE */
-
+	if (!HAL_GPIO_ReadPin(CH1_1_GPIO_Port, CH1_1_Pin))
+	{
+		HAL_GPIO_WritePin(CH1_1R_GPIO_Port, CH1_1R_Pin, 1);
+		
+	}
+	HAL_Delay(30);
   /* USER CODE BEGIN 3 */
 
   }
