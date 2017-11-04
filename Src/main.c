@@ -106,6 +106,250 @@ int main(void)
 		HAL_GPIO_WritePin(CH1_1R_GPIO_Port, CH1_1R_Pin, 1);
 		
 	}
+	else
+	{
+		HAL_GPIO_WritePin(CH1_1R_GPIO_Port, CH1_1R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH1_2_GPIO_Port, CH1_2_Pin))
+	{
+		HAL_GPIO_WritePin(CH1_2R_GPIO_Port, CH1_2R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH1_2R_GPIO_Port, CH1_2R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH1_3_GPIO_Port, CH1_3_Pin))
+	{
+		HAL_GPIO_WritePin(CH1_3R_GPIO_Port, CH1_3R_Pin, 1);
+		
+	}
+	else
+	{
+		
+		HAL_GPIO_WritePin(CH1_3R_GPIO_Port, CH1_3R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH1_4_GPIO_Port, CH1_4_Pin))
+	{
+		HAL_GPIO_WritePin(CH1_4R_GPIO_Port, CH1_4R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH1_4R_GPIO_Port, CH1_4R_Pin, 0);
+	}
+	if (!HAL_GPIO_ReadPin(CH2_1_GPIO_Port, CH2_1_Pin))
+	{
+		HAL_GPIO_WritePin(CH2_1R_GPIO_Port, CH2_1R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH2_1R_GPIO_Port, CH2_1R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH2_2_GPIO_Port, CH2_2_Pin))
+	{
+		HAL_GPIO_WritePin(CH2_2R_GPIO_Port, CH2_2R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH2_2R_GPIO_Port, CH2_2R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH2_3_GPIO_Port, CH2_3_Pin))
+	{
+		HAL_GPIO_WritePin(CH2_3R_GPIO_Port, CH2_3R_Pin, 1);
+		
+	}
+	else
+	{
+		
+		HAL_GPIO_WritePin(CH2_3R_GPIO_Port, CH2_3R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH2_4_GPIO_Port, CH2_4_Pin))
+	{
+		HAL_GPIO_WritePin(CH2_4R_GPIO_Port, CH2_4R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH2_4R_GPIO_Port, CH2_4R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH3_1_GPIO_Port, CH3_1_Pin))
+	{
+		HAL_GPIO_WritePin(CH3_1R_GPIO_Port, CH3_1R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH3_1R_GPIO_Port, CH3_1R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH3_2_GPIO_Port, CH3_2_Pin))
+	{
+		HAL_GPIO_WritePin(CH3_2R_GPIO_Port, CH3_2R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH3_2R_GPIO_Port, CH3_2R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH3_3_GPIO_Port, CH3_3_Pin))
+	{
+		HAL_GPIO_WritePin(CH3_3R_GPIO_Port, CH3_3R_Pin, 1);
+		
+	}
+	else
+	{
+		
+		HAL_GPIO_WritePin(CH3_3R_GPIO_Port, CH3_3R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH3_4_GPIO_Port, CH3_4_Pin))
+	{
+		HAL_GPIO_WritePin(CH3_4R_GPIO_Port, CH3_4R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH3_4R_GPIO_Port, CH3_4R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH4_1_GPIO_Port, CH4_1_Pin))
+	{
+		HAL_GPIO_WritePin(CH4_1R_GPIO_Port, CH4_1R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH4_1R_GPIO_Port, CH4_1R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH4_2_GPIO_Port, CH4_2_Pin))
+	{
+		HAL_GPIO_WritePin(CH4_2R_GPIO_Port, CH4_2R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH4_2R_GPIO_Port, CH4_2R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH4_3_GPIO_Port, CH4_3_Pin))
+	{
+		HAL_GPIO_WritePin(CH4_3R_GPIO_Port, CH4_3R_Pin, 1);
+		
+	}
+	else
+	{
+		
+		HAL_GPIO_WritePin(CH4_3R_GPIO_Port, CH4_3R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH4_4_GPIO_Port, CH4_4_Pin))
+	{
+		HAL_GPIO_WritePin(CH4_4R_GPIO_Port, CH4_4R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH4_4R_GPIO_Port, CH4_4R_Pin, 0);
+	}
+	if (!HAL_GPIO_ReadPin(CH5_1_GPIO_Port, CH5_1_Pin))
+	{
+		HAL_GPIO_WritePin(CH5_1R_GPIO_Port, CH5_1R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH5_1R_GPIO_Port, CH5_1R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH5_2_GPIO_Port, CH5_2_Pin))
+	{
+		HAL_GPIO_WritePin(CH5_2R_GPIO_Port, CH5_2R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH5_2R_GPIO_Port, CH5_2R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH5_3_GPIO_Port, CH5_3_Pin))
+	{
+		HAL_GPIO_WritePin(CH5_3R_GPIO_Port, CH5_3R_Pin, 1);
+		
+	}
+	else
+	{
+		
+		HAL_GPIO_WritePin(CH5_3R_GPIO_Port, CH5_3R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH5_4_GPIO_Port, CH5_4_Pin))
+	{
+		HAL_GPIO_WritePin(CH5_4R_GPIO_Port, CH5_4R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH5_4R_GPIO_Port, CH5_4R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH6_1_GPIO_Port, CH6_1_Pin))
+	{
+		HAL_GPIO_WritePin(CH6_1R_GPIO_Port, CH6_1R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH6_1R_GPIO_Port, CH6_1R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH6_2_GPIO_Port, CH6_2_Pin))
+	{
+		HAL_GPIO_WritePin(CH6_2R_GPIO_Port, CH6_2R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH6_2R_GPIO_Port, CH6_2R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH6_3_GPIO_Port, CH6_3_Pin))
+	{
+		HAL_GPIO_WritePin(CH6_3R_GPIO_Port, CH6_3R_Pin, 1);
+		
+	}
+	else
+	{
+		
+		HAL_GPIO_WritePin(CH6_3R_GPIO_Port, CH6_3R_Pin, 0);
+	}
+	
+	if (!HAL_GPIO_ReadPin(CH6_4_GPIO_Port, CH6_4_Pin))
+	{
+		HAL_GPIO_WritePin(CH6_4R_GPIO_Port, CH6_4R_Pin, 1);
+		
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH6_4R_GPIO_Port, CH6_4R_Pin, 0);
+	}
+	
+	
+	
+	
+	
+	
 	HAL_Delay(30);
   /* USER CODE BEGIN 3 */
 
