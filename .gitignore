@@ -2,3 +2,9 @@
 *.crf
 *.lst
 MDK-ARM/GAS_ALARM_BOARD
+
+*.uvoptx
+
+*.Manojkumar
+
+*.scvd
