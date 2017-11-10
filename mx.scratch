@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project>
-<ProjectName>C:\Users\manojkumar\Documents\STM32F1BOARD\\GAS_ALARM_BOARD</ProjectName>
+<ProjectName>D:\Users\manoj\Documents\STM32F1BOARD\\GAS_ALARM_BOARD</ProjectName>
 <CMSIS>..\Drivers\CMSIS</CMSIS>
-<HAL_Driver>C:\Users\manojkumar\STM32Cube\Repository\STM32Cube_FW_F1_V1.6.0\Drivers\CMSIS</HAL_Driver>
+<HAL_Driver>D:\Users\manoj\STM32Cube\Repository\STM32Cube_FW_F1_V1.6.0\Drivers\CMSIS</HAL_Driver>
 
 <Toolchain>MDK-ARM</Toolchain>
 	<Toolversion>5</Toolversion>
@@ -11,9 +11,6 @@
 <filestoremove>
 	<file>
 	   		<name>..\Drivers\CMSIS\Device\ST\STM32F1xx\Source\Templates\arm\startup_stm32f100xb.s</name>
-	   		<name>..\Src\main.c</name>
-	   		<name>..\Src\stm32f1xx_it.c</name>
-	   		<name>..\Src\stm32f1xx_hal_msp.c</name>
 	</file>
 </filestoremove>
 

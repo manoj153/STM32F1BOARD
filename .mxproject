@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=C:/Users/manojkumar/Documents/STM32F1BOARD/Inc
+HeaderPath=D:/Users/manoj/Documents/STM32F1BOARD/Inc
 HeaderFiles=stm32f1xx_it.h;stm32f1xx_hal_conf.h;main.h;
-SourcePath=C:/Users/manojkumar/Documents/STM32F1BOARD/Src
+SourcePath=D:/Users/manoj/Documents/STM32F1BOARD/Src
 SourceFiles=stm32f1xx_it.h;stm32f1xx_hal_conf.h;main.h;stm32f1xx_it.c;stm32f1xx_hal_msp.c;main.c;
 
 [PreviousLibFiles]
