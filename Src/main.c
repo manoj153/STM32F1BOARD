@@ -67,6 +67,7 @@ void readChannel(uint8_t chWhat);
 /* Variables Start */
 uint32_t dipSW 		= 0xFFFFFFFF;
 uint32_t sensors 	=	0xFFFFFFFF;
+_Bool inverted;
 /* Variables Ends*/
  void dipSWR(void);
 /* USER CODE END 0 */
@@ -106,6 +107,47 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		sensors 	=	0xFFFFFFFF;
+		dipSWR();
+		if (~((dipSW >> 0) & 1))
+		{
+			inverted = 1;
+		}
+		else
+		{
+			inverted = 0;
+		}
+		
+		if (~((dipSW >> 1) & 1)) //CH6 BYP switch check to see to read the value or no
+		{
+			readChannel(6U);
+		}
+		
+		if (~((dipSW >> 2) & 1)) //CH5 BYP switch check to see to read the value or no
+		{
+			readChannel(5U);
+		}
+		
+		if (~((dipSW >> 3) & 1)) //CH4 BYP switch check to see to read the value or no
+		{
+			readChannel(4U);
+		}
+		
+		if (~((dipSW >> 4) & 1)) //CH3 BYP switch check to see to read the value or no
+		{
+			readChannel(3U);
+		}
+		
+		if (~((dipSW >> 5) & 1)) //CH2 BYP switch check to see to read the value or no
+		{
+			readChannel(2U);
+		}
+		
+		if (~((dipSW >> 6) & 1)) //CH1 BYP switch check to see to read the value or no
+		{
+			readChannel(1U);
+		}
+		
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
