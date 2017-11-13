@@ -148,6 +148,11 @@ int main(void)
 			readChannel(1U);
 		}
 		
+		if (inverted)
+		{
+			sensors = (~sensors);
+		}
+		
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
