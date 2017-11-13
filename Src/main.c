@@ -64,6 +64,7 @@ static void MX_USART2_UART_Init(void);
 
 /* USER CODE BEGIN 0 */
 void readChannel(uint8_t chWhat);
+void trigger(void);
 /* Variables Start */
 uint32_t dipSW 		= 0xFFFFFFFF;
 uint32_t sensors 	=	0xFFFFFFFF;
@@ -409,6 +410,20 @@ void readChannel(uint8_t chWhat)
   	default:
   			break;
   }
+}
+
+void trigger(void)
+{
+	//CH6,
+	if (((sensors >> 0) & 1) && ((sensors >> 1) & 1 ) && ((sensors >> 2) & 1) && ((sensors >> 3) & 1))
+	{
+		//Turn ON Green LED for CH6
+		HAL_GPIO_WritePin(CH6G_6_GPIO_Port, CH6G_6_Pin, GPIO_PIN_SET);
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH6G_6_GPIO_Port, CH6G_6_Pin, GPIO_PIN_RESET);
+	}
 }
 /* USER CODE END 4 */
 
