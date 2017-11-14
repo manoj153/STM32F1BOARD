@@ -154,6 +154,8 @@ int main(void)
 			sensors = (~sensors);
 		}
 		
+		trigger();
+		
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
