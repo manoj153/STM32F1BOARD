@@ -395,13 +395,13 @@ void readChannel(uint8_t chWhat)
 		sensors &= ~((~(	HAL_GPIO_ReadPin(CH5_1_GPIO_Port, CH5_1_Pin))) << 7);
 		sensors &= ~((~(	HAL_GPIO_ReadPin(CH5_2_GPIO_Port, CH5_2_Pin))) << 6);
 		sensors &= ~((~(	HAL_GPIO_ReadPin(CH5_3_GPIO_Port, CH5_3_Pin))) << 5);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH5_4_GPIO_Port, CH5_4_Pin))) << 5);
+		sensors &= ~((~(	HAL_GPIO_ReadPin(CH5_4_GPIO_Port, CH5_4_Pin))) << 4);
 		
 			break;
 		
 	case 6U:
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH6_1_GPIO_Port, CH6_1_Pin))) << 4);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH6_2_GPIO_Port, CH6_2_Pin))) << 3);
+		sensors &= ~((~(	HAL_GPIO_ReadPin(CH6_1_GPIO_Port, CH6_1_Pin))) << 3);
+		sensors &= ~((~(	HAL_GPIO_ReadPin(CH6_2_GPIO_Port, CH6_2_Pin))) << 2);
 		sensors &= ~((~(	HAL_GPIO_ReadPin(CH6_3_GPIO_Port, CH6_3_Pin))) << 1);
 		sensors &= ~((~(	HAL_GPIO_ReadPin(CH6_4_GPIO_Port, CH6_4_Pin))) << 0);
 			
