@@ -414,15 +414,37 @@ void readChannel(uint8_t chWhat)
 
 void trigger(void)
 {
-	//CH6,
+	//CH6, Green ligth 
 	if (((sensors >> 0) & 1) && ((sensors >> 1) & 1 ) && ((sensors >> 2) & 1) && ((sensors >> 3) & 1))
 	{
 		//Turn ON Green LED for CH6
 		HAL_GPIO_WritePin(CH6G_6_GPIO_Port, CH6G_6_Pin, GPIO_PIN_SET);
+		//Turn Of Any Red LEDS, System is good.
+		HAL_GPIO_WritePin(CH6R_1_GPIO_Port, CH6R_1_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH6R_2_GPIO_Port, CH6R_2_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH6R_3_GPIO_Port, CH6R_3_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH6R_4_GPIO_Port, CH6R_4_Pin, GPIO_PIN_RESET);
 	}
 	else
 	{
 		HAL_GPIO_WritePin(CH6G_6_GPIO_Port, CH6G_6_Pin, GPIO_PIN_RESET);
+		//Each individual red led trigger CH6-1 -> CH1-1
+		if(~(sensors >> 0) & 1)
+		{
+			HAL_GPIO_WritePin(CH6R_4_GPIO_Port, CH6R_4_Pin, GPIO_PIN_SET);
+		}
+		if(~(sensors >> 1) & 1)
+		{
+			HAL_GPIO_WritePin(CH6R_3_GPIO_Port, CH6R_3_Pin, GPIO_PIN_SET);
+		}
+		if(~(sensors >> 2) & 1)
+		{
+			HAL_GPIO_WritePin(CH6R_2_GPIO_Port, CH6R_2_Pin, GPIO_PIN_SET);
+		}
+		if(~(sensors >> 3) & 1)
+		{
+			HAL_GPIO_WritePin(CH6R_1_GPIO_Port, CH6R_1_Pin, GPIO_PIN_SET);
+		}
 	}
 }
 /* USER CODE END 4 */
