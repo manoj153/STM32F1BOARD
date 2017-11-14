@@ -659,6 +659,56 @@ void trigger(void)
 			HAL_GPIO_WritePin(CH2R_1_GPIO_Port, CH2R_1_Pin, GPIO_PIN_RESET);
 		}
 	}
+	if (((sensors >> 20) & 1) && ((sensors >> 21) & 1 ) && ((sensors >> 22) & 1) && ((sensors >> 23) & 1))
+	{
+		//Turn ON Green LED for CH1
+		HAL_GPIO_WritePin(CH1G_1_GPIO_Port, CH1G_1_Pin, GPIO_PIN_SET);
+		//Turn Of Any Red LEDS, System is good.
+		HAL_GPIO_WritePin(CH1R_1_GPIO_Port, CH1R_1_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH1R_2_GPIO_Port, CH1R_2_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH1R_3_GPIO_Port, CH1R_3_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH1R_4_GPIO_Port, CH1R_4_Pin, GPIO_PIN_RESET);
+	}
+	else
+	{
+		HAL_GPIO_WritePin(CH1G_1_GPIO_Port, CH1G_1_Pin, GPIO_PIN_RESET);
+		//Each individual red led trigger CH1-1 -> CH1-1
+		if(~(sensors >> 20) & 1)
+		{
+			HAL_GPIO_WritePin(CH1R_4_GPIO_Port, CH1R_4_Pin, GPIO_PIN_SET);
+		}
+		else 
+		{
+			HAL_GPIO_WritePin(CH1R_4_GPIO_Port, CH1R_4_Pin, GPIO_PIN_RESET);
+		}
+			
+		if(~(sensors >> 21) & 1)
+		{
+			HAL_GPIO_WritePin(CH1R_3_GPIO_Port, CH1R_3_Pin, GPIO_PIN_SET);
+		}
+		else
+		{
+			HAL_GPIO_WritePin(CH1R_3_GPIO_Port, CH1R_3_Pin, GPIO_PIN_RESET);
+		}
+		if(~(sensors >> 22) & 1)
+		{
+			HAL_GPIO_WritePin(CH1R_2_GPIO_Port, CH1R_2_Pin, GPIO_PIN_SET);
+		}
+		else
+		{
+			HAL_GPIO_WritePin(CH1R_2_GPIO_Port, CH1R_2_Pin, GPIO_PIN_RESET);
+		}
+			
+		if(~(sensors >> 23) & 1)
+		{
+			HAL_GPIO_WritePin(CH1R_1_GPIO_Port, CH1R_1_Pin, GPIO_PIN_SET);
+		}
+		else 
+		{
+			HAL_GPIO_WritePin(CH1R_1_GPIO_Port, CH1R_1_Pin, GPIO_PIN_RESET);
+		}
+	}
+	
 	
 }
 /* USER CODE END 4 */
