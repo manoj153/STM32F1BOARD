@@ -433,17 +433,33 @@ void trigger(void)
 		{
 			HAL_GPIO_WritePin(CH6R_4_GPIO_Port, CH6R_4_Pin, GPIO_PIN_SET);
 		}
+		else
+		{
+			HAL_GPIO_WritePin(CH6R_4_GPIO_Port, CH6R_4_Pin, GPIO_PIN_RESET);
+		}
 		if(~(sensors >> 1) & 1)
 		{
 			HAL_GPIO_WritePin(CH6R_3_GPIO_Port, CH6R_3_Pin, GPIO_PIN_SET);
+		}
+		else 
+		{
+			HAL_GPIO_WritePin(CH6R_3_GPIO_Port, CH6R_3_Pin, GPIO_PIN_RESET);
 		}
 		if(~(sensors >> 2) & 1)
 		{
 			HAL_GPIO_WritePin(CH6R_2_GPIO_Port, CH6R_2_Pin, GPIO_PIN_SET);
 		}
+		else 
+		{
+			HAL_GPIO_WritePin(CH6R_2_GPIO_Port, CH6R_2_Pin, GPIO_PIN_RESET);
+		}
 		if(~(sensors >> 3) & 1)
 		{
 			HAL_GPIO_WritePin(CH6R_1_GPIO_Port, CH6R_1_Pin, GPIO_PIN_SET);
+		}
+		else
+		{
+			HAL_GPIO_WritePin(CH6R_1_GPIO_Port, CH6R_1_Pin, GPIO_PIN_RESET);
 		}
 	}
 		if (((sensors >> 4) & 1) && ((sensors >> 5) & 1 ) && ((sensors >> 6) & 1) && ((sensors >> 7) & 1))
