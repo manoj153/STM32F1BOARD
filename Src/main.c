@@ -375,45 +375,45 @@ void readChannel(uint8_t chWhat)
 	switch (chWhat)
   {
   	case 1U: 
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH1_1_GPIO_Port, CH1_1_Pin))) << 23) ;
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH1_2_GPIO_Port, CH1_2_Pin))) << 22);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH1_3_GPIO_Port, CH1_3_Pin))) << 21);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH1_4_GPIO_Port, CH1_4_Pin))) << 20);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH1_1_GPIO_Port, CH1_1_Pin) << 23);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH1_2_GPIO_Port, CH1_2_Pin) << 22);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH1_3_GPIO_Port, CH1_3_Pin) << 21);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH1_4_GPIO_Port, CH1_4_Pin) << 20);
   			break;
   	case 2U:
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH2_1_GPIO_Port, CH2_1_Pin))) << 19);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH2_2_GPIO_Port, CH2_2_Pin))) << 18);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH2_3_GPIO_Port, CH2_3_Pin))) << 17);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH2_4_GPIO_Port, CH2_4_Pin))) << 16);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH2_1_GPIO_Port, CH2_1_Pin) << 19);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH2_2_GPIO_Port, CH2_2_Pin) << 18);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH2_3_GPIO_Port, CH2_3_Pin) << 17);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH2_4_GPIO_Port, CH2_4_Pin) << 16);
 			
   			break;
 	case 3U:
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH3_1_GPIO_Port, CH3_1_Pin))) << 15);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH3_2_GPIO_Port, CH3_2_Pin))) << 14);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH3_3_GPIO_Port, CH3_3_Pin))) << 13);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH3_4_GPIO_Port, CH3_4_Pin))) << 12);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH3_1_GPIO_Port, CH3_1_Pin) << 15);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH3_2_GPIO_Port, CH3_2_Pin) << 14);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH3_3_GPIO_Port, CH3_3_Pin) << 13);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH3_4_GPIO_Port, CH3_4_Pin) << 12);
 			
 			break;
 	case 4U:
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH4_1_GPIO_Port, CH4_1_Pin))) << 11);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH4_2_GPIO_Port, CH4_2_Pin))) << 10);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH4_3_GPIO_Port, CH4_3_Pin))) << 9);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH4_4_GPIO_Port, CH4_4_Pin))) << 8);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH4_1_GPIO_Port, CH4_1_Pin) << 11);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH4_2_GPIO_Port, CH4_2_Pin) << 10);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH4_3_GPIO_Port, CH4_3_Pin) << 9);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH4_4_GPIO_Port, CH4_4_Pin) << 8);
 		
 			break;
 	case 5U:
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH5_1_GPIO_Port, CH5_1_Pin))) << 7);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH5_2_GPIO_Port, CH5_2_Pin))) << 6);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH5_3_GPIO_Port, CH5_3_Pin))) << 5);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH5_4_GPIO_Port, CH5_4_Pin))) << 4);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH5_1_GPIO_Port, CH5_1_Pin) << 7);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH5_2_GPIO_Port, CH5_2_Pin) << 6);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH5_3_GPIO_Port, CH5_3_Pin) << 5);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH5_4_GPIO_Port, CH5_4_Pin) << 4);
 		
 			break;
 		
 	case 6U:
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH6_1_GPIO_Port, CH6_1_Pin))) << 3);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH6_2_GPIO_Port, CH6_2_Pin))) << 2);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH6_3_GPIO_Port, CH6_3_Pin))) << 1);
-		sensors &= ~((~(	HAL_GPIO_ReadPin(CH6_4_GPIO_Port, CH6_4_Pin))) << 0);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH6_1_GPIO_Port, CH6_1_Pin) << 3);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH6_2_GPIO_Port, CH6_2_Pin) << 2);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH6_3_GPIO_Port, CH6_3_Pin) << 1);
+		sensors &= ~(	HAL_GPIO_ReadPin(CH6_4_GPIO_Port, CH6_4_Pin) << 0);
 			
 			break;
 
