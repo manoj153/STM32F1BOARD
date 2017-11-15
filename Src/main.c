@@ -353,13 +353,20 @@ static void MX_GPIO_Init(void)
 void dipSWR(void)
 {
 	dipSW = 0xFFFF;
-	dipSW  &= ~((~(HAL_GPIO_ReadPin(CH1GBYP_1_GPIO_Port, CH1GBYP_1_Pin))) << 6);// 7th bith 
-	dipSW  &= ~((~(HAL_GPIO_ReadPin(CH2GBYP_2_GPIO_Port, CH2GBYP_2_Pin))) << 5);
-	dipSW  &= ~((~(HAL_GPIO_ReadPin(CH3GBYP_3_GPIO_Port, CH3GBYP_3_Pin))) << 4);
-	dipSW  &= ~((~(HAL_GPIO_ReadPin(CH4GBYP_4_GPIO_Port, CH4GBYP_4_Pin))) << 3);
-	dipSW  &= ~((~(HAL_GPIO_ReadPin(CH5GBYP_5_GPIO_Port, CH5GBYP_5_Pin))) << 2);
-	dipSW  &= ~((~(HAL_GPIO_ReadPin(CH6GBYP_6_GPIO_Port, CH6GBYP_6_Pin))) << 1);
-	dipSW  &= ~((~(HAL_GPIO_ReadPin(ALLGBYP_7_GPIO_Port, ALLGBYP_7_Pin))) << 0);
+//	dipSW &= ~~(1 << 6);
+//	dipSW &= ~~(1 << 5);
+//	dipSW &= ~(1 << 4);
+//	dipSW &= ~(1 << 3);
+//	dipSW &= ~(1 << 2);
+//	dipSW &= ~~(1 << 1);
+//	dipSW &= ~(1 << 0);
+		dipSW  &= ~(HAL_GPIO_ReadPin(CH1GBYP_1_GPIO_Port, CH1GBYP_1_Pin) << 6);// 7th bith 
+		dipSW  &= ~(HAL_GPIO_ReadPin(CH2GBYP_2_GPIO_Port, CH2GBYP_2_Pin) << 5);
+		dipSW  &= ~(HAL_GPIO_ReadPin(CH3GBYP_3_GPIO_Port, CH3GBYP_3_Pin) << 4);
+		dipSW  &= ~(HAL_GPIO_ReadPin(CH4GBYP_4_GPIO_Port, CH4GBYP_4_Pin) << 3);
+		dipSW  &= ~(HAL_GPIO_ReadPin(CH5GBYP_5_GPIO_Port, CH5GBYP_5_Pin) << 2);
+		dipSW  &= ~(HAL_GPIO_ReadPin(CH6GBYP_6_GPIO_Port, CH6GBYP_6_Pin) << 1);
+		dipSW  &= ~(HAL_GPIO_ReadPin(ALLGBYP_7_GPIO_Port, ALLGBYP_7_Pin) << 0);
 }
 
 void readChannel(uint8_t chWhat)
