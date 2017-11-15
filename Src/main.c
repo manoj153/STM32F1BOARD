@@ -110,7 +110,7 @@ int main(void)
   {
 		sensors 	=	0xFFFFFFFF;
 		dipSWR();
-		if (~((dipSW >> 0) & 1))
+		if (((dipSW >> 0) & 1))
 		{
 			inverted = 1;
 		}
@@ -119,32 +119,32 @@ int main(void)
 			inverted = 0;
 		}
 		
-		if (~((dipSW >> 1) & 1)) //CH6 BYP switch check to see to read the value or no
+		if (((dipSW >> 1) & 1)) //CH6 BYP switch check to see to read the value or no
 		{
 			readChannel(6U);
 		}
 		
-		if (~((dipSW >> 2) & 1)) //CH5 BYP switch check to see to read the value or no
+		if (((dipSW >> 2) & 1)) //CH5 BYP switch check to see to read the value or no
 		{
 			readChannel(5U);
 		}
 		
-		if (~((dipSW >> 3) & 1)) //CH4 BYP switch check to see to read the value or no
+		if (((dipSW >> 3) & 1)) //CH4 BYP switch check to see to read the value or no
 		{
 			readChannel(4U);
 		}
 		
-		if (~((dipSW >> 4) & 1)) //CH3 BYP switch check to see to read the value or no
+		if (((dipSW >> 4) & 1)) //CH3 BYP switch check to see to read the value or no
 		{
 			readChannel(3U);
 		}
 		
-		if (~((dipSW >> 5) & 1)) //CH2 BYP switch check to see to read the value or no
+		if (((dipSW >> 5) & 1)) //CH2 BYP switch check to see to read the value or no
 		{
 			readChannel(2U);
 		}
 		
-		if (~((dipSW >> 6) & 1)) //CH1 BYP switch check to see to read the value or no
+		if (((dipSW >> 6) & 1)) //CH1 BYP switch check to see to read the value or no
 		{
 			readChannel(1U);
 		}
@@ -360,6 +360,7 @@ void dipSWR(void)
 //	dipSW &= ~(1 << 2);
 //	dipSW &= ~~(1 << 1);
 //	dipSW &= ~(1 << 0);
+		//When SW on, Signal HIGH
 		dipSW  &= ~(HAL_GPIO_ReadPin(CH1GBYP_1_GPIO_Port, CH1GBYP_1_Pin) << 6);// 7th bith 
 		dipSW  &= ~(HAL_GPIO_ReadPin(CH2GBYP_2_GPIO_Port, CH2GBYP_2_Pin) << 5);
 		dipSW  &= ~(HAL_GPIO_ReadPin(CH3GBYP_3_GPIO_Port, CH3GBYP_3_Pin) << 4);
