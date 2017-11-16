@@ -65,6 +65,8 @@ static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN 0 */
 void readChannel(uint8_t chWhat);
 void trigger(void);
+void buzz(uint32_t rounds);
+void delayUS(uint32_t us);
 /* Variables Start */
 uint32_t dipSW 		= 0xFFFFFFFF;
 uint32_t sensors 	=	0xFFFFFFFF;
@@ -79,7 +81,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+	
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -103,7 +105,7 @@ int main(void)
   MX_USART2_UART_Init();
 
   /* USER CODE BEGIN 2 */
-
+	buzz(5000000);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -587,7 +589,7 @@ void trigger(void)
 			HAL_GPIO_WritePin(CH6R_1_GPIO_Port, CH6R_1_Pin, GPIO_PIN_RESET);
 		}
 			
-		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
+		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
 		if ((((sensors >> 4) ^ 1) &1) && (((sensors >> 5) ^ 1 )&1) && (((sensors >> 6) ^ 1)&1) && (((sensors >> 7) ^ 1)&1))
 	{
@@ -639,7 +641,7 @@ void trigger(void)
 		{
 			HAL_GPIO_WritePin(CH5R_1_GPIO_Port, CH5R_1_Pin, GPIO_PIN_RESET);
 		}
-		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
+		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
 			if ((((sensors >> 8) ^ 1) &1) && (((sensors >> 9) ^ 1 )&1) && (((sensors >> 10) ^ 1)&1) && (((sensors >> 11) ^ 1)&1))
 	{
@@ -691,7 +693,7 @@ void trigger(void)
 		{
 			HAL_GPIO_WritePin(CH4R_1_GPIO_Port, CH4R_1_Pin, GPIO_PIN_RESET);
 		}
-		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
+		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
 	
 	if ((((sensors >> 12) ^ 1)&1) && (((sensors >> 13) ^ 1 )&1) && (((sensors >> 14) ^ 1)&1) && (((sensors >> 15) ^ 1)&1))
@@ -744,7 +746,7 @@ void trigger(void)
 		{
 			HAL_GPIO_WritePin(CH3R_1_GPIO_Port, CH3R_1_Pin, GPIO_PIN_RESET);
 		}
-		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
+		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
 	if ((((sensors >> 16) ^ 1)&1) && (((sensors >> 17) ^1) & 1 ) && (((sensors >> 18) ^ 1)&1) && (((sensors >> 19) ^ 1 )&1))
 	{
@@ -796,7 +798,7 @@ void trigger(void)
 		{
 			HAL_GPIO_WritePin(CH2R_1_GPIO_Port, CH2R_1_Pin, GPIO_PIN_RESET);
 		}
-		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
+		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
 	if ((((sensors >> 20) ^ 1)&1) && (((sensors >> 21) ^1  )&1) && (((sensors >> 22) ^ 1)&1) && (((sensors >> 23) ^1) &1))
 	{
@@ -848,7 +850,7 @@ void trigger(void)
 		{
 			HAL_GPIO_WritePin(CH1R_1_GPIO_Port, CH1R_1_Pin, GPIO_PIN_RESET);
 		}
-		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
+		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
 	
 	if((CH1Rly | CH2Rly | CH3Rly | CH4Rly | CH5Rly | CH6Rly))
@@ -866,10 +868,18 @@ void buzz(uint32_t rounds)
 	for (uint16_t x = 0; x< rounds; x++)
 	{
 		HAL_GPIO_WritePin(Beep_GPIO_Port, Beep_Pin, GPIO_PIN_SET);
-		HAL_Delay(125);
+		//HAL_Delay(125);
+		delayUS(150);
 		HAL_GPIO_WritePin(Beep_GPIO_Port, Beep_Pin, GPIO_PIN_RESET);
-		HAL_Delay(125);		
+		//HAL_Delay(125);	
+		delayUS(150);		
 	}
+}
+
+void delayUS(uint32_t us)
+{
+	volatile uint32_t counter = 7*us;
+	while(counter--);
 }
 	
 /* USER CODE END 4 */
