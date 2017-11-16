@@ -532,7 +532,7 @@ void readChannel(uint8_t chWhat)
 
 void trigger(void)
 {
-	HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_RESET);
+	//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_RESET);
 	test = ((sensors) ^ (1)) & 1; 
 	//test = ((sensors >> 0 ^ 1) && (sensors >> 1 ^ 1 ) && ((sensors >> 2) ^ 1) && (sensors >> 3 ^ 1)) ; 
 	//CH6, Green ligth // All Trigger 0,  ()
@@ -839,6 +839,18 @@ void trigger(void)
 	
 	
 }
+
+void buzz(uint32_t rounds)
+{
+	for (uint16_t x = 0; x< rounds; x++)
+	{
+		HAL_GPIO_WritePin(Beep_GPIO_Port, Beep_Pin, GPIO_PIN_SET);
+		HAL_Delay(125);
+		HAL_GPIO_WritePin(Beep_GPIO_Port, Beep_Pin, GPIO_PIN_RESET);
+		HAL_Delay(125);		
+	}
+}
+	
 /* USER CODE END 4 */
 
 /**
