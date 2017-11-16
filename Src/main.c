@@ -126,42 +126,141 @@ int main(void)
 		}
 		else 
 		{
-			
-		sensors &= ~((1) << 23);
-		sensors &= ~((1) << 22);
-		sensors &= ~((1) << 21);
-		sensors &= ~((1) << 20);
+		if (inverted)
+		{
+		sensors &= ~((0) << 3);
+		sensors &= ~((0) << 2);
+		sensors &= ~((0) << 1);
+		sensors &= ~((0) << 0);		
+		}
+		else		
+		{
+		sensors &= ~((1) << 3);
+		sensors &= ~((1) << 2);
+		sensors &= ~((1) << 1);
+		sensors &= ~((1) << 0);	
+		}
+		
 		}
 		
 		if (((dipSW >> 2) & 1)) //CH5 BYP switch check to see to read the value or no
 		{
 			readChannel(5U);
 		}
+		else 
+		{
+		if (inverted)
+		{
+		sensors &= ~((0) << 7);
+		sensors &= ~((0) << 6);
+		sensors &= ~((0) << 5);
+		sensors &= ~((0) << 4);	
+		}
+		else
+		{
+		sensors &= ~((1) << 7);
+		sensors &= ~((1) << 6);
+		sensors &= ~((1) << 5);
+		sensors &= ~((1) << 4);	
+		}
+		}
+		
 		
 		if (((dipSW >> 3) & 1)) //CH4 BYP switch check to see to read the value or no
 		{
 			readChannel(4U);
+		}
+		else 
+		{
+			if (inverted)
+			{
+		sensors &= ~((0) << 11);
+		sensors &= ~((0) << 10);
+		sensors &= ~((0) << 9);
+		sensors &= ~((0) << 8);
+			}
+			else
+			{
+		sensors &= ~((1) << 11);
+		sensors &= ~((1) << 10);
+		sensors &= ~((1) << 9);
+		sensors &= ~((1) << 8);
+			}
+				
+		
 		}
 		
 		if (((dipSW >> 4) & 1)) //CH3 BYP switch check to see to read the value or no
 		{
 			readChannel(3U);
 		}
+		else 
+		{
+				if (inverted)
+				{
+		sensors &= ~((0) << 15);
+		sensors &= ~((0) << 14);
+		sensors &= ~((0) << 13);
+		sensors &= ~((0) << 12);
+				}
+				else 
+				{
+		sensors &= ~((1) << 15);
+		sensors &= ~((1) << 14);
+		sensors &= ~((1) << 13);
+		sensors &= ~((1) << 12);
+				}
+		}
 		
 		if (((dipSW >> 5) & 1)) //CH2 BYP switch check to see to read the value or no
 		{
 			readChannel(2U);
+		}
+		else 
+		{
+		if (inverted)
+		{			
+		sensors &= ~((0) << 19);
+		sensors &= ~((0) << 18);
+		sensors &= ~((0) << 17);
+		sensors &= ~((0) << 16);
+		}
+		else
+		{
+		sensors &= ~((1) << 19);
+		sensors &= ~((1) << 18);
+		sensors &= ~((1) << 17);
+		sensors &= ~((1) << 16);
+		}
 		}
 		
 		if (((dipSW >> 6) & 1)) //CH1 BYP switch check to see to read the value or no
 		{
 			readChannel(1U);
 		}
+		else 
+		{
+		if (inverted)
+		{
+		sensors &= ~((0) << 23);
+		sensors &= ~((0) << 22);
+		sensors &= ~((0) << 21);
+		sensors &= ~((0) << 20);
+		}
+		else
+		{
+		sensors &= ~((1) << 23);
+		sensors &= ~((1) << 22);
+		sensors &= ~((1) << 21);
+		sensors &= ~((1) << 20);
+		}
+	}
 		
 		if (inverted)
 		{
 			sensors = (~sensors);
 		}
+		
 		
 		trigger();
 		
