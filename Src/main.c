@@ -532,6 +532,7 @@ void readChannel(uint8_t chWhat)
 
 void trigger(void)
 {
+	HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_RESET);
 	test = ((sensors) ^ (1)) & 1; 
 	//test = ((sensors >> 0 ^ 1) && (sensors >> 1 ^ 1 ) && ((sensors >> 2) ^ 1) && (sensors >> 3 ^ 1)) ; 
 	//CH6, Green ligth // All Trigger 0,  ()
@@ -581,6 +582,8 @@ void trigger(void)
 		{
 			HAL_GPIO_WritePin(CH6R_1_GPIO_Port, CH6R_1_Pin, GPIO_PIN_RESET);
 		}
+			
+		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
 		if ((((sensors >> 4) ^ 1) &1) && (((sensors >> 5) ^ 1 )&1) && (((sensors >> 6) ^ 1)&1) && (((sensors >> 7) ^ 1)&1))
 	{
@@ -630,6 +633,7 @@ void trigger(void)
 		{
 			HAL_GPIO_WritePin(CH5R_1_GPIO_Port, CH5R_1_Pin, GPIO_PIN_RESET);
 		}
+		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
 			if ((((sensors >> 8) ^ 1) &1) && (((sensors >> 9) ^ 1 )&1) && (((sensors >> 10) ^ 1)&1) && (((sensors >> 11) ^ 1)&1))
 	{
@@ -679,6 +683,7 @@ void trigger(void)
 		{
 			HAL_GPIO_WritePin(CH4R_1_GPIO_Port, CH4R_1_Pin, GPIO_PIN_RESET);
 		}
+		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
 	
 	if ((((sensors >> 12) ^ 1)&1) && (((sensors >> 13) ^ 1 )&1) && (((sensors >> 14) ^ 1)&1) && (((sensors >> 15) ^ 1)&1))
@@ -729,6 +734,7 @@ void trigger(void)
 		{
 			HAL_GPIO_WritePin(CH3R_1_GPIO_Port, CH3R_1_Pin, GPIO_PIN_RESET);
 		}
+		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
 	if ((((sensors >> 16) ^ 1)&1) && (((sensors >> 17) ^1) & 1 ) && (((sensors >> 18) ^ 1)&1) && (((sensors >> 19) ^ 1 )&1))
 	{
@@ -778,6 +784,7 @@ void trigger(void)
 		{
 			HAL_GPIO_WritePin(CH2R_1_GPIO_Port, CH2R_1_Pin, GPIO_PIN_RESET);
 		}
+		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
 	if ((((sensors >> 20) ^ 1)&1) && (((sensors >> 21) ^1  )&1) && (((sensors >> 22) ^ 1)&1) && (((sensors >> 23) ^1) &1))
 	{
@@ -827,6 +834,7 @@ void trigger(void)
 		{
 			HAL_GPIO_WritePin(CH1R_1_GPIO_Port, CH1R_1_Pin, GPIO_PIN_RESET);
 		}
+		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
 	
 	
