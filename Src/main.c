@@ -851,7 +851,14 @@ void trigger(void)
 		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
 	
-	
+	if((CH1Rly | CH2Rly | CH3Rly | CH4Rly | CH5Rly | CH6Rly))
+	{
+		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
+	}
+	else
+	{
+		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_RESET);
+	}
 }
 
 void buzz(uint32_t rounds)
