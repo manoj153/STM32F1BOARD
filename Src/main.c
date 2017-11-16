@@ -70,6 +70,7 @@ uint32_t dipSW 		= 0xFFFFFFFF;
 uint32_t sensors 	=	0xFFFFFFFF;
 _Bool inverted;
 _Bool test;
+_Bool CH1Rly, CH2Rly, CH3Rly, CH4Rly, CH5Rly, CH6Rly = 0x0;
 /* Variables Ends*/
  void dipSWR(void);
 /* USER CODE END 0 */
@@ -109,6 +110,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		CH1Rly = 0x0; CH2Rly = 0x0; CH3Rly = 0x0; CH4Rly = 0x0; CH5Rly = 0x0;  CH6Rly = 0x0;
 		sensors 	=	0xFFFFFFFF;
 		dipSWR();
 		if (((dipSW >> 0) & 1))
@@ -545,9 +547,11 @@ void trigger(void)
 		HAL_GPIO_WritePin(CH6R_2_GPIO_Port, CH6R_2_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(CH6R_3_GPIO_Port, CH6R_3_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(CH6R_4_GPIO_Port, CH6R_4_Pin, GPIO_PIN_RESET);
+		CH6Rly = 0x00;
 	}
 	else
 	{
+		CH6Rly = 0x01;
 		HAL_GPIO_WritePin(CH6G_6_GPIO_Port, CH6G_6_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH6-1 -> CH1-1
 		if((sensors >> 0) & 1)
@@ -594,9 +598,11 @@ void trigger(void)
 		HAL_GPIO_WritePin(CH5R_2_GPIO_Port, CH5R_2_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(CH5R_3_GPIO_Port, CH5R_3_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(CH5R_4_GPIO_Port, CH5R_4_Pin, GPIO_PIN_RESET);
+		CH5Rly = 0x00;
 	}
 	else
 	{
+		CH5Rly = 0x01;
 		HAL_GPIO_WritePin(CH5G_5_GPIO_Port, CH5G_5_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH5-1 -> CH1-1
 		if((sensors >> 4) & 1)
@@ -644,9 +650,11 @@ void trigger(void)
 		HAL_GPIO_WritePin(CH4R_2_GPIO_Port, CH4R_2_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(CH4R_3_GPIO_Port, CH4R_3_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(CH4R_4_GPIO_Port, CH4R_4_Pin, GPIO_PIN_RESET);
+		CH4Rly = 0x00;
 	}
 	else
 	{
+		CH4Rly = 0x01;
 		HAL_GPIO_WritePin(CH4G_4_GPIO_Port, CH4G_4_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH4-1 -> CH1-1
 		if((sensors >> 8) & 1)
@@ -695,9 +703,11 @@ void trigger(void)
 		HAL_GPIO_WritePin(CH3R_2_GPIO_Port, CH3R_2_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(CH3R_3_GPIO_Port, CH3R_3_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(CH3R_4_GPIO_Port, CH3R_4_Pin, GPIO_PIN_RESET);
+		CH3Rly = 0x00;
 	}
 	else
 	{
+		CH3Rly = 0x01;
 		HAL_GPIO_WritePin(CH3G_3_GPIO_Port, CH3G_3_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH3-1 -> CH1-1
 		if((sensors >> 12) & 1)
@@ -745,9 +755,11 @@ void trigger(void)
 		HAL_GPIO_WritePin(CH2R_2_GPIO_Port, CH2R_2_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(CH2R_3_GPIO_Port, CH2R_3_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(CH2R_4_GPIO_Port, CH2R_4_Pin, GPIO_PIN_RESET);
+		CH2Rly = 0x00;
 	}
 	else
 	{
+		CH2Rly = 0x01;
 		HAL_GPIO_WritePin(CH2G_2_GPIO_Port, CH2G_2_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH2-1 -> CH1-1
 		if((sensors >> 16) & 1)
@@ -795,9 +807,11 @@ void trigger(void)
 		HAL_GPIO_WritePin(CH1R_2_GPIO_Port, CH1R_2_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(CH1R_3_GPIO_Port, CH1R_3_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(CH1R_4_GPIO_Port, CH1R_4_Pin, GPIO_PIN_RESET);
+		CH1Rly = 0x00;
 	}
 	else
 	{
+		CH1Rly = 0x01;
 		HAL_GPIO_WritePin(CH1G_1_GPIO_Port, CH1G_1_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH1-1 -> CH1-1
 		if((sensors >> 20) & 1)
