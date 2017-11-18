@@ -109,7 +109,6 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_TIM4_Init();
-	//HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1 );
 
   /* USER CODE BEGIN 2 */
 	for(int x = 0;x <2; x++)
@@ -434,9 +433,9 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, PWR_SYSF_Pin|ASYS_F_Pin|PWR_LED_Pin|RLY1_Pin 
-                          |TESTpb_Pin|MUTEpb_Pin|CH6G_6_Pin|CH5R_1_Pin 
-                          |CH4R_4_Pin|CH4R_3_Pin|CH4R_2_Pin|CH4R_1_Pin 
-                          |CH3R_4_Pin|CH3R_3_Pin|CH3R_2_Pin, GPIO_PIN_RESET);
+                          |CH6G_6_Pin|CH5R_1_Pin|CH4R_4_Pin|CH4R_3_Pin 
+                          |CH4R_2_Pin|CH4R_1_Pin|CH3R_4_Pin|CH3R_3_Pin 
+                          |CH3R_2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, CH5G_5_Pin|CH4G_4_Pin|CH3G_3_Pin|CH2G_2_Pin 
@@ -497,15 +496,21 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PWR_SYSF_Pin ASYS_F_Pin PWR_LED_Pin RLY1_Pin 
-                           TESTpb_Pin MUTEpb_Pin CH6G_6_Pin CH5R_1_Pin 
-                           CH4R_4_Pin CH4R_3_Pin CH4R_2_Pin CH4R_1_Pin 
-                           CH3R_4_Pin CH3R_3_Pin CH3R_2_Pin */
+                           CH6G_6_Pin CH5R_1_Pin CH4R_4_Pin CH4R_3_Pin 
+                           CH4R_2_Pin CH4R_1_Pin CH3R_4_Pin CH3R_3_Pin 
+                           CH3R_2_Pin */
   GPIO_InitStruct.Pin = PWR_SYSF_Pin|ASYS_F_Pin|PWR_LED_Pin|RLY1_Pin 
-                          |TESTpb_Pin|MUTEpb_Pin|CH6G_6_Pin|CH5R_1_Pin 
-                          |CH4R_4_Pin|CH4R_3_Pin|CH4R_2_Pin|CH4R_1_Pin 
-                          |CH3R_4_Pin|CH3R_3_Pin|CH3R_2_Pin;
+                          |CH6G_6_Pin|CH5R_1_Pin|CH4R_4_Pin|CH4R_3_Pin 
+                          |CH4R_2_Pin|CH4R_1_Pin|CH3R_4_Pin|CH3R_3_Pin 
+                          |CH3R_2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : TESTpb_Pin MUTEpb_Pin */
+  GPIO_InitStruct.Pin = TESTpb_Pin|MUTEpb_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
   /*Configure GPIO pins : CH5G_5_Pin CH4G_4_Pin CH3G_3_Pin CH2G_2_Pin 
