@@ -45,6 +45,8 @@
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
+TIM_HandleTypeDef htim4;
+
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
@@ -56,6 +58,9 @@ UART_HandleTypeDef huart2;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
+static void MX_TIM4_Init(void);                                    
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+                                
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -103,9 +108,19 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART2_UART_Init();
+  MX_TIM4_Init();
+	//HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1 );
 
   /* USER CODE BEGIN 2 */
-	//buzz(5000000);
+	for(int x = 0;x <2; x++)
+  {
+	buzz(1);
+	HAL_Delay(250);
+	buzz(1);
+	HAL_Delay(250);
+  }
+	
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -322,6 +337,56 @@ void SystemClock_Config(void)
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
+/* TIM4 init function */
+static void MX_TIM4_Init(void)
+{
+
+  TIM_ClockConfigTypeDef sClockSourceConfig;
+  TIM_MasterConfigTypeDef sMasterConfig;
+  TIM_OC_InitTypeDef sConfigOC;
+
+  htim4.Instance = TIM4;
+  htim4.Init.Prescaler = 8;
+  htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim4.Init.Period = 250;
+  htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim4, &sClockSourceConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  if (HAL_TIM_PWM_Init(&htim4) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 125;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_PWM_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  HAL_TIM_MspPostInit(&htim4);
+
+}
+
 /* USART2 init function */
 static void MX_USART2_UART_Init(void)
 {
@@ -369,9 +434,9 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, PWR_SYSF_Pin|ASYS_F_Pin|PWR_LED_Pin|RLY1_Pin 
-                          |Beep_Pin|TESTpb_Pin|MUTEpb_Pin|CH6G_6_Pin 
-                          |CH5R_1_Pin|CH4R_4_Pin|CH4R_3_Pin|CH4R_2_Pin 
-                          |CH4R_1_Pin|CH3R_4_Pin|CH3R_3_Pin|CH3R_2_Pin, GPIO_PIN_RESET);
+                          |TESTpb_Pin|MUTEpb_Pin|CH6G_6_Pin|CH5R_1_Pin 
+                          |CH4R_4_Pin|CH4R_3_Pin|CH4R_2_Pin|CH4R_1_Pin 
+                          |CH3R_4_Pin|CH3R_3_Pin|CH3R_2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, CH5G_5_Pin|CH4G_4_Pin|CH3G_3_Pin|CH2G_2_Pin 
@@ -432,13 +497,13 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PWR_SYSF_Pin ASYS_F_Pin PWR_LED_Pin RLY1_Pin 
-                           Beep_Pin TESTpb_Pin MUTEpb_Pin CH6G_6_Pin 
-                           CH5R_1_Pin CH4R_4_Pin CH4R_3_Pin CH4R_2_Pin 
-                           CH4R_1_Pin CH3R_4_Pin CH3R_3_Pin CH3R_2_Pin */
+                           TESTpb_Pin MUTEpb_Pin CH6G_6_Pin CH5R_1_Pin 
+                           CH4R_4_Pin CH4R_3_Pin CH4R_2_Pin CH4R_1_Pin 
+                           CH3R_4_Pin CH3R_3_Pin CH3R_2_Pin */
   GPIO_InitStruct.Pin = PWR_SYSF_Pin|ASYS_F_Pin|PWR_LED_Pin|RLY1_Pin 
-                          |Beep_Pin|TESTpb_Pin|MUTEpb_Pin|CH6G_6_Pin 
-                          |CH5R_1_Pin|CH4R_4_Pin|CH4R_3_Pin|CH4R_2_Pin 
-                          |CH4R_1_Pin|CH3R_4_Pin|CH3R_3_Pin|CH3R_2_Pin;
+                          |TESTpb_Pin|MUTEpb_Pin|CH6G_6_Pin|CH5R_1_Pin 
+                          |CH4R_4_Pin|CH4R_3_Pin|CH4R_2_Pin|CH4R_1_Pin 
+                          |CH3R_4_Pin|CH3R_3_Pin|CH3R_2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
@@ -865,15 +930,12 @@ void trigger(void)
 
 void buzz(uint32_t rounds)
 {
+	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1 );
 	for (uint16_t x = 0; x< rounds; x++)
 	{
-		HAL_GPIO_WritePin(Beep_GPIO_Port, Beep_Pin, GPIO_PIN_SET);
-		//HAL_Delay(125);
-		delayUS(150);
-		HAL_GPIO_WritePin(Beep_GPIO_Port, Beep_Pin, GPIO_PIN_RESET);
-		//HAL_Delay(125);	
-		delayUS(150);		
+		HAL_Delay(1000);
 	}
+	HAL_TIM_PWM_Stop(&htim4, TIM_CHANNEL_1 );	
 }
 
 void delayUS(uint32_t us)

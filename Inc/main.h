@@ -127,8 +127,6 @@
 #define PWR_LED_GPIO_Port GPIOD
 #define RLY1_Pin GPIO_PIN_11
 #define RLY1_GPIO_Port GPIOD
-#define Beep_Pin GPIO_PIN_12
-#define Beep_GPIO_Port GPIOD
 #define TESTpb_Pin GPIO_PIN_13
 #define TESTpb_GPIO_Port GPIOD
 #define MUTEpb_Pin GPIO_PIN_14
