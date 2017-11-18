@@ -112,6 +112,8 @@ int main(void)
 	//HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1 );
 
   /* USER CODE BEGIN 2 */
+	HAL_GPIO_WritePin(PWR_LED_GPIO_Port, PWR_LED_Pin, GPIO_PIN_SET);
+	//4Beeps during on ~10Second
 	for(int x = 0;x <2; x++)
   {
 	buzz(1);
