@@ -284,6 +284,7 @@ int main(void)
 		
 		//Read AC-Fail A raw High is fail. So ~(LOW-BAD, HIGH Good)
 		miscl &= ~(	HAL_GPIO_ReadPin(AC_FAIL_GPIO_Port,AC_FAIL_Pin) << 7); //bit 8 
+		miscl &= ~(	HAL_GPIO_ReadPin(CONN_FAIL_GPIO_Port,CONN_FAIL_Pin) << 6); //bit 8 
 		miscl = (~miscl);
 		
 		trigger();
@@ -939,6 +940,14 @@ void trigger(void)
 	else
 	{
 		HAL_GPIO_WritePin(PWR_SYSF_GPIO_Port, PWR_SYSF_Pin, GPIO_PIN_RESET);
+	}
+	if ((miscl >> 6) & 1)
+	{
+		HAL_GPIO_WritePin(ASYS_F_GPIO_Port, ASYS_F_Pin, GPIO_PIN_SET);
+	}
+	else
+	{
+		HAL_GPIO_WritePin(ASYS_F_GPIO_Port, ASYS_F_Pin, GPIO_PIN_RESET);
 	}
 	if((CH1Rly | CH2Rly | CH3Rly | CH4Rly | CH5Rly | CH6Rly))
 	{
