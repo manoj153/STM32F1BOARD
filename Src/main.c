@@ -75,6 +75,7 @@ void delayUS(uint32_t us);
 /* Variables Start */
 uint32_t dipSW 		= 0xFFFFFFFF;
 uint32_t sensors 	=	0xFFFFFFFF;
+uint8_t miscl = 0xFF;
 _Bool inverted;
 _Bool test;
 _Bool CH1Rly, CH2Rly, CH3Rly, CH4Rly, CH5Rly, CH6Rly = 0x0;
@@ -129,6 +130,7 @@ int main(void)
   {
 		CH1Rly = 0x0; CH2Rly = 0x0; CH3Rly = 0x0; CH4Rly = 0x0; CH5Rly = 0x0;  CH6Rly = 0x0;
 		sensors 	=	0xFFFFFFFF;
+		miscl = 0xFF;
 		dipSWR();
 		if (((dipSW >> 0) & 1))
 		{
@@ -280,6 +282,9 @@ int main(void)
 			sensors = (~sensors);
 		}
 		
+		//Read AC-Fail A raw High is fail. So ~(LOW-BAD, HIGH Good)
+		miscl &= ~(	HAL_GPIO_ReadPin(AC_FAIL_GPIO_Port,AC_FAIL_Pin) << 7); //bit 8 
+		miscl = (~miscl);
 		
 		trigger();
 		
@@ -924,6 +929,15 @@ void trigger(void)
 		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
 	
+	//PowerSYS fail
+	if ((miscl >> 7) & 1)
+	{
+		HAL_GPIO_WritePin(PWR_SYSF_GPIO_Port, PWR_SYSF_Pin, GPIO_PIN_SET);
+	}
+	else
+	{
+		HAL_GPIO_WritePin(PWR_SYSF_GPIO_Port, PWR_SYSF_Pin, GPIO_PIN_RESET);
+	}
 	if((CH1Rly | CH2Rly | CH3Rly | CH4Rly | CH5Rly | CH6Rly))
 	{
 		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
