@@ -435,7 +435,7 @@ static void MX_GPIO_Init(void)
                           |CH1R_1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, RTS_Pin|CH1G_1_Pin|CONN_FAIL_Pin|CH6R_1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, RTS_Pin|CH1G_1_Pin|CH6R_1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, PWR_SYSF_Pin|ASYS_F_Pin|PWR_LED_Pin|RLY1_Pin 
@@ -478,15 +478,17 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : RSV_Pin CH1_1_Pin CH1_2_Pin CH1_3_Pin 
-                           CH1_4_Pin PMUTEPB_Pin BATT_FAIL_Pin AC_FAIL_Pin */
+                           CH1_4_Pin PMUTEPB_Pin CONN_FAIL_Pin BATT_FAIL_Pin 
+                           AC_FAIL_Pin */
   GPIO_InitStruct.Pin = RSV_Pin|CH1_1_Pin|CH1_2_Pin|CH1_3_Pin 
-                          |CH1_4_Pin|PMUTEPB_Pin|BATT_FAIL_Pin|AC_FAIL_Pin;
+                          |CH1_4_Pin|PMUTEPB_Pin|CONN_FAIL_Pin|BATT_FAIL_Pin 
+                          |AC_FAIL_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : RTS_Pin CH1G_1_Pin CONN_FAIL_Pin CH6R_1_Pin */
-  GPIO_InitStruct.Pin = RTS_Pin|CH1G_1_Pin|CONN_FAIL_Pin|CH6R_1_Pin;
+  /*Configure GPIO pins : RTS_Pin CH1G_1_Pin CH6R_1_Pin */
+  GPIO_InitStruct.Pin = RTS_Pin|CH1G_1_Pin|CH6R_1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
