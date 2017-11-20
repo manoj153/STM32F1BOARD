@@ -68,10 +68,13 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+#define REFdebounce 150
 void readChannel(uint8_t chWhat);
 void trigger(void);
 void buzz(uint32_t rounds);
 void delayUS(uint32_t us);
+void testRun(void);
+void onallLED(void);
 /* Variables Start */
 uint32_t dipSW 		= 0xFFFFFFFF;
 uint32_t sensors 	=	0xFFFFFFFF;
@@ -79,6 +82,15 @@ uint8_t miscl = 0xFF;
 _Bool inverted;
 _Bool test;
 _Bool CH1Rly, CH2Rly, CH3Rly, CH4Rly, CH5Rly, CH6Rly = 0x0;
+_Bool Mutepb;
+uint32_t Mute_1;
+uint32_t Mute_0;
+_Bool Testpb;
+_Bool TestpbState;
+
+uint32_t Test_1;
+uint32_t Test_0;
+uint16_t count1;
 /* Variables Ends*/
  void dipSWR(void);
 /* USER CODE END 0 */
@@ -615,6 +627,10 @@ void readChannel(uint8_t chWhat)
 
 void trigger(void)
 {
+	if(TestpbState == 1)
+	{
+		testRun();
+	}
 	//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_RESET);
 	test = ((sensors) ^ (1)) & 1; 
 	//test = ((sensors >> 0 ^ 1) && (sensors >> 1 ^ 1 ) && ((sensors >> 2) ^ 1) && (sensors >> 3 ^ 1)) ; 
@@ -968,6 +984,149 @@ void buzz(uint32_t rounds)
 	}
 	HAL_TIM_PWM_Stop(&htim4, TIM_CHANNEL_1 );	
 }
+
+void HAL_SYSTICK_Callback(void)
+{
+//	if(count1 >= 500 )
+//	{
+//	HAL_GPIO_TogglePin(PWR_LED_GPIO_Port, PWR_LED_Pin);	
+//	count1 = 0;
+//	}
+//	else
+//	{
+//		count1++;
+//	}
+	Testpb = (HAL_GPIO_ReadPin(TESTpb_GPIO_Port,TESTpb_Pin));
+	//Testpb = ~(Testpb);
+	if(Testpb != 1)
+	{
+		Test_1 ++;
+		Test_0 = 0;
+		if(Test_1 >= REFdebounce)
+		{
+			Test_1 = REFdebounce +1 ;
+			TestpbState = 1;
+			
+			
+		}
+	}
+		else
+		{
+			Test_1 = 0; 
+			Test_0++;
+			if(Test_0 >= REFdebounce)
+			{
+			Test_0 = REFdebounce +1 ;
+			TestpbState = 0;
+			}
+		}
+	}
+
+void testRun(void)
+{	
+	onallLED();
+	for(uint8_t x =0; x < 5; x++)
+	{
+		HAL_GPIO_TogglePin(CH1G_1_GPIO_Port, CH1G_1_Pin);
+		HAL_GPIO_TogglePin(CH2G_2_GPIO_Port, CH2G_2_Pin);
+		HAL_GPIO_TogglePin(CH3G_3_GPIO_Port, CH3G_3_Pin);
+		HAL_GPIO_TogglePin(CH4G_4_GPIO_Port, CH4G_4_Pin);
+		HAL_GPIO_TogglePin(CH5G_5_GPIO_Port, CH5G_5_Pin);
+		HAL_GPIO_TogglePin(CH6G_6_GPIO_Port, CH6G_6_Pin);
+		
+		//#Toggle 1-6CH, Red LED  (4*6 = 24)
+		//#CH1R-1 - CH1R-4
+		HAL_GPIO_TogglePin(CH1R_1_GPIO_Port, CH1R_1_Pin);
+		HAL_GPIO_TogglePin(CH1R_2_GPIO_Port, CH1R_2_Pin);
+		HAL_GPIO_TogglePin(CH1R_3_GPIO_Port, CH1R_3_Pin);
+		HAL_GPIO_TogglePin(CH1R_4_GPIO_Port, CH1R_4_Pin);
+		
+		//#CH2R-1 - CH2R-4
+		HAL_GPIO_TogglePin(CH2R_1_GPIO_Port, CH2R_1_Pin);
+		HAL_GPIO_TogglePin(CH2R_2_GPIO_Port, CH2R_2_Pin);
+		HAL_GPIO_TogglePin(CH2R_3_GPIO_Port, CH2R_3_Pin);
+		HAL_GPIO_TogglePin(CH2R_4_GPIO_Port, CH2R_4_Pin);
+		//#CH3R-1 - CH3R-4
+		HAL_GPIO_TogglePin(CH3R_1_GPIO_Port, CH3R_1_Pin);
+		HAL_GPIO_TogglePin(CH3R_2_GPIO_Port, CH3R_2_Pin);
+		HAL_GPIO_TogglePin(CH3R_3_GPIO_Port, CH3R_3_Pin);
+		HAL_GPIO_TogglePin(CH3R_4_GPIO_Port, CH3R_4_Pin);
+		//#CH4R-1 - CH4R-4
+		HAL_GPIO_TogglePin(CH4R_1_GPIO_Port, CH4R_1_Pin);
+		HAL_GPIO_TogglePin(CH4R_2_GPIO_Port, CH4R_2_Pin);
+		HAL_GPIO_TogglePin(CH4R_3_GPIO_Port, CH4R_3_Pin);
+		HAL_GPIO_TogglePin(CH4R_4_GPIO_Port, CH4R_4_Pin);
+		
+		//#CH5R-1 - CH5R-4
+		HAL_GPIO_TogglePin(CH5R_1_GPIO_Port, CH5R_1_Pin);
+		HAL_GPIO_TogglePin(CH5R_2_GPIO_Port, CH5R_2_Pin);
+		HAL_GPIO_TogglePin(CH5R_3_GPIO_Port, CH5R_3_Pin);
+		HAL_GPIO_TogglePin(CH5R_4_GPIO_Port, CH5R_4_Pin);
+		
+		//#CH6R-1 - CH6-4
+		HAL_GPIO_TogglePin(CH6R_1_GPIO_Port, CH6R_1_Pin);
+		HAL_GPIO_TogglePin(CH6R_2_GPIO_Port, CH6R_2_Pin);
+		HAL_GPIO_TogglePin(CH6R_3_GPIO_Port, CH6R_3_Pin);
+		HAL_GPIO_TogglePin(CH6R_4_GPIO_Port, CH6R_4_Pin);
+		
+		HAL_GPIO_TogglePin(ASYS_F_GPIO_Port, ASYS_F_Pin);
+		HAL_GPIO_TogglePin(PWR_SYSF_GPIO_Port, PWR_SYSF_Pin);
+		HAL_GPIO_TogglePin(PWR_LED_GPIO_Port, PWR_LED_Pin);
+		buzz(1);
+	}
+		//Always on the power end
+		HAL_GPIO_WritePin(PWR_LED_GPIO_Port, PWR_LED_Pin, GPIO_PIN_SET);
+	}
+
+void onallLED(void)
+{
+		HAL_GPIO_WritePin(CH1G_1_GPIO_Port, CH1G_1_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH2G_2_GPIO_Port, CH2G_2_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH3G_3_GPIO_Port, CH3G_3_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH4G_4_GPIO_Port, CH4G_4_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH5G_5_GPIO_Port, CH5G_5_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH6G_6_GPIO_Port, CH6G_6_Pin,GPIO_PIN_SET);
+		
+		//#Toggle 1-6CH, Red LED  (4*6 = 24)
+		//#CH1R-1 - CH1R-4
+		HAL_GPIO_WritePin(CH1R_1_GPIO_Port, CH1R_1_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH1R_2_GPIO_Port, CH1R_2_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH1R_3_GPIO_Port, CH1R_3_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH1R_4_GPIO_Port, CH1R_4_Pin,GPIO_PIN_SET);
+		
+		//#CH2R-1 - CH2R-4
+		HAL_GPIO_WritePin(CH2R_1_GPIO_Port, CH2R_1_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH2R_2_GPIO_Port, CH2R_2_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH2R_3_GPIO_Port, CH2R_3_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH2R_4_GPIO_Port, CH2R_4_Pin,GPIO_PIN_SET);
+		//#CH3R-1 - CH3R-4
+		HAL_GPIO_WritePin(CH3R_1_GPIO_Port, CH3R_1_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH3R_2_GPIO_Port, CH3R_2_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH3R_3_GPIO_Port, CH3R_3_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH3R_4_GPIO_Port, CH3R_4_Pin,GPIO_PIN_SET);
+		//#CH4R-1 - CH4R-4
+		HAL_GPIO_WritePin(CH4R_1_GPIO_Port, CH4R_1_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH4R_2_GPIO_Port, CH4R_2_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH4R_3_GPIO_Port, CH4R_3_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH4R_4_GPIO_Port, CH4R_4_Pin,GPIO_PIN_SET);
+		
+		//#CH5R-1 - CH5R-4
+		HAL_GPIO_WritePin(CH5R_1_GPIO_Port, CH5R_1_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH5R_2_GPIO_Port, CH5R_2_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH5R_3_GPIO_Port, CH5R_3_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH5R_4_GPIO_Port, CH5R_4_Pin,GPIO_PIN_SET);
+		
+		//#CH6R-1 - CH6-4
+		HAL_GPIO_WritePin(CH6R_1_GPIO_Port, CH6R_1_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH6R_2_GPIO_Port, CH6R_2_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH6R_3_GPIO_Port, CH6R_3_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(CH6R_4_GPIO_Port, CH6R_4_Pin,GPIO_PIN_SET);
+		
+		HAL_GPIO_WritePin(ASYS_F_GPIO_Port, ASYS_F_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(PWR_SYSF_GPIO_Port, PWR_SYSF_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(PWR_LED_GPIO_Port, PWR_LED_Pin,GPIO_PIN_SET);
+}
+
 
 void delayUS(uint32_t us)
 {
