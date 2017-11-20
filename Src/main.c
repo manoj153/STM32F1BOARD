@@ -952,6 +952,7 @@ void trigger(void)
 	if ((miscl >> 7) & 1)
 	{
 		HAL_GPIO_WritePin(PWR_SYSF_GPIO_Port, PWR_SYSF_Pin, GPIO_PIN_SET);
+		buzz(1);
 	}
 	else
 	{
@@ -960,6 +961,7 @@ void trigger(void)
 	if ((miscl >> 6) & 1)
 	{
 		HAL_GPIO_WritePin(ASYS_F_GPIO_Port, ASYS_F_Pin, GPIO_PIN_SET);
+		buzz(1);
 	}
 	else
 	{
@@ -968,6 +970,7 @@ void trigger(void)
 	if((CH1Rly | CH2Rly | CH3Rly | CH4Rly | CH5Rly | CH6Rly))
 	{
 		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
+		buzz(1);
 	}
 	else
 	{
