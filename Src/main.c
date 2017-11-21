@@ -83,10 +83,12 @@ _Bool inverted;
 _Bool test;
 _Bool CH1Rly, CH2Rly, CH3Rly, CH4Rly, CH5Rly, CH6Rly = 0x0;
 _Bool Mutepb;
+_Bool buzzorNO;
 uint32_t Mute_1;
 uint32_t Mute_0;
 _Bool Testpb;
 _Bool TestpbState;
+_Bool MutepbState;
 
 uint32_t Test_1;
 uint32_t Test_0;
@@ -364,7 +366,7 @@ static void MX_TIM4_Init(void)
   TIM_OC_InitTypeDef sConfigOC;
 
   htim4.Instance = TIM4;
-  htim4.Init.Prescaler = 8;
+  htim4.Init.Prescaler = 7;
   htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim4.Init.Period = 250;
   htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -630,6 +632,10 @@ void trigger(void)
 	if(TestpbState == 1)
 	{
 		testRun();
+	}
+	if(MutepbState == 1)
+	{
+		HAL_GPIO_TogglePin(PWR_LED_GPIO_Port, PWR_LED_Pin);
 	}
 	//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_RESET);
 	test = ((sensors) ^ (1)) & 1; 
@@ -1000,6 +1006,7 @@ void HAL_SYSTICK_Callback(void)
 //		count1++;
 //	}
 	Testpb = (HAL_GPIO_ReadPin(TESTpb_GPIO_Port,TESTpb_Pin));
+	Mutepb = HAL_GPIO_ReadPin(MUTEpb_GPIO_Port, MUTEpb_Pin);
 	//Testpb = ~(Testpb);
 	if(Testpb != 1)
 	{
@@ -1008,9 +1015,7 @@ void HAL_SYSTICK_Callback(void)
 		if(Test_1 >= REFdebounce)
 		{
 			Test_1 = REFdebounce +1 ;
-			TestpbState = 1;
-			
-			
+			TestpbState = 1;						
 		}
 	}
 		else
@@ -1023,7 +1028,30 @@ void HAL_SYSTICK_Callback(void)
 			TestpbState = 0;
 			}
 		}
+		if(Mutepb != 1)
+	{
+		Mute_1 ++;
+		Mute_0 = 0;
+		if(Mute_1 >= REFdebounce)
+		{
+			Mute_1 = REFdebounce +1 ;
+			MutepbState = 1;
+			
+			
+		}
 	}
+		else
+		{
+			Mute_1 = 0; 
+			Mute_0++;
+			if(Mute_0 >= REFdebounce)
+			{
+			Mute_0 = REFdebounce +1 ;
+			MutepbState = 0;
+			}
+		}
+	}
+	
 
 void testRun(void)
 {	
