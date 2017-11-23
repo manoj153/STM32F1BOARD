@@ -1060,7 +1060,8 @@ void HAL_SYSTICK_Callback(void)
 		if(Test_1 >= REFdebounce)
 		{
 			Test_1 = REFdebounce +1 ;
-			TestpbState = 1;						
+			TestpbState = 1;	
+			
 		}
 	}
 		else
@@ -1081,7 +1082,7 @@ void HAL_SYSTICK_Callback(void)
 		{
 			Mute_1 = REFdebounce +1 ;
 			MutepbState = 1;
-			
+			countetTIM1 = 0;
 			
 		}
 	}

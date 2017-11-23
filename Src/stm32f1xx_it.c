@@ -37,6 +37,7 @@
 
 /* USER CODE BEGIN 0 */
 extern _Bool buzzorNO;
+extern uint16_t countetTIM1;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -191,8 +192,13 @@ void TIM1_UP_TIM16_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM1_UP_TIM16_IRQn 0 */
 		HAL_TIM_IRQHandler(&htim1);
-		buzzorNO = 1;
-		HAL_TIM_Base_Stop(&htim1);
+		countetTIM1 ++;
+		if (countetTIM1 >= 900)
+		{
+			buzzorNO = 1;
+			HAL_TIM_Base_Stop(&htim1);
+		}
+		
   /* USER CODE END TIM1_UP_TIM16_IRQn 0 */
   HAL_TIM_IRQHandler(&htim1);
   /* USER CODE BEGIN TIM1_UP_TIM16_IRQn 1 */
