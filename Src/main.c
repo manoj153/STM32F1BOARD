@@ -86,7 +86,7 @@ _Bool inverted;
 _Bool test;
 _Bool CH1Rly, CH2Rly, CH3Rly, CH4Rly, CH5Rly, CH6Rly = 0x0;
 _Bool Mutepb;
-_Bool buzzorNO;
+_Bool buzzorNO  = 1;
 uint32_t Mute_1;
 uint32_t Mute_0;
 _Bool Testpb;
@@ -96,6 +96,7 @@ _Bool PERMENANTMUTE = 1;
 uint32_t Test_1;
 uint32_t Test_0;
 uint16_t count1;
+uint16_t countetTIM1 = 0;
 /* Variables Ends*/
  void dipSWR(void);
 /* USER CODE END 0 */
@@ -369,9 +370,9 @@ static void MX_TIM1_Init(void)
   TIM_MasterConfigTypeDef sMasterConfig;
 
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 127;
+  htim1.Init.Prescaler = 4999;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 62500;
+  htim1.Init.Period = 1600;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -673,7 +674,10 @@ void trigger(void)
 	}
 	if(MutepbState == 1)
 	{
-		HAL_GPIO_TogglePin(PWR_LED_GPIO_Port, PWR_LED_Pin);
+		//HAL_GPIO_TogglePin(PWR_LED_GPIO_Port, PWR_LED_Pin);
+		buzzorNO = 0;
+		HAL_TIM_Base_Start_IT(&htim1);
+		
 	}
 	//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_RESET);
 	test = ((sensors) ^ (1)) & 1; 
@@ -1024,12 +1028,15 @@ void trigger(void)
 
 void buzz(uint32_t rounds)
 {
+	if((buzzorNO&PERMENANTMUTE))
+	{
 	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1 );
 	for (uint16_t x = 0; x< rounds; x++)
 	{
 		HAL_Delay(1000);
 	}
 	HAL_TIM_PWM_Stop(&htim4, TIM_CHANNEL_1 );	
+	}
 }
 
 void HAL_SYSTICK_Callback(void)
