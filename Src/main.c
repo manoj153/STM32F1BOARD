@@ -696,10 +696,13 @@ void trigger(void)
 {
 	if(TestpbState == 1)
 	{
+		buzz(1);
 		testRun();
+		
 	}
 	if(MutepbState == 1)
 	{
+		buzz(1);
 		//HAL_GPIO_TogglePin(PWR_LED_GPIO_Port, PWR_LED_Pin);
 		buzzorNO = 0;
 		HAL_TIM_Base_Start_IT(&htim1);
