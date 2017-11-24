@@ -86,17 +86,23 @@ _Bool inverted;
 _Bool test;
 _Bool CH1Rly, CH2Rly, CH3Rly, CH4Rly, CH5Rly, CH6Rly = 0x0;
 _Bool Mutepb;
+_Bool Pmutepb = 1;
 _Bool buzzorNO  = 1;
 uint32_t Mute_1;
 uint32_t Mute_0;
+uint32_t Pmute_1;
+uint32_t Pmute_0;
+
 _Bool Testpb;
 _Bool TestpbState;
 _Bool MutepbState;
+_Bool PmutepbState;
 _Bool PERMENANTMUTE = 1;
 uint32_t Test_1;
 uint32_t Test_0;
 uint16_t count1;
 uint16_t countetTIM1 = 0;
+
 uint8_t txSE[] = "SE";
 /* Variables Ends*/
  void dipSWR(void);
@@ -708,6 +714,7 @@ void trigger(void)
 		HAL_TIM_Base_Start_IT(&htim1);
 		
 	}
+	
 	//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_RESET);
 	test = ((sensors) ^ (1)) & 1; 
 	//test = ((sensors >> 0 ^ 1) && (sensors >> 1 ^ 1 ) && ((sensors >> 2) ^ 1) && (sensors >> 3 ^ 1)) ; 
@@ -1081,6 +1088,7 @@ void HAL_SYSTICK_Callback(void)
 //	}
 	Testpb = (HAL_GPIO_ReadPin(TESTpb_GPIO_Port,TESTpb_Pin));
 	Mutepb = HAL_GPIO_ReadPin(MUTEpb_GPIO_Port, MUTEpb_Pin);
+	Pmutepb = HAL_GPIO_ReadPin(PMUTEPB_GPIO_Port, PMUTEPB_Pin);
 	//Testpb = ~(Testpb);
 	if(Testpb != 1)
 	{
@@ -1125,6 +1133,19 @@ void HAL_SYSTICK_Callback(void)
 			MutepbState = 0;
 			}
 		}
+		
+		if(Pmutepb  != 1)
+	{
+		Pmute_1 ++;
+		Pmute_0 = 0;
+		if(Pmute_1 >= REFdebounce)
+		{
+			Pmute_1 = REFdebounce +1 ;
+			PmutepbState = 1;
+			PERMENANTMUTE = 0;
+			
+		}
+	}
 	}
 	
 
@@ -1178,7 +1199,10 @@ void testRun(void)
 		HAL_GPIO_TogglePin(ASYS_F_GPIO_Port, ASYS_F_Pin);
 		HAL_GPIO_TogglePin(PWR_SYSF_GPIO_Port, PWR_SYSF_Pin);
 		HAL_GPIO_TogglePin(PWR_LED_GPIO_Port, PWR_LED_Pin);
+		HAL_GPIO_TogglePin(RLY1_GPIO_Port, RLY1_Pin);
 		buzz(1);
+		HAL_Delay(500);
+		
 	}
 		//Always on the power end
 		HAL_GPIO_WritePin(PWR_LED_GPIO_Port, PWR_LED_Pin, GPIO_PIN_SET);
