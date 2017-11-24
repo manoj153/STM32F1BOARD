@@ -97,8 +97,14 @@ uint32_t Test_1;
 uint32_t Test_0;
 uint16_t count1;
 uint16_t countetTIM1 = 0;
+uint8_t txSE[] = "SE";
 /* Variables Ends*/
  void dipSWR(void);
+ union  
+{
+  uint32_t bit_32;
+  uint8_t bytes[4];
+}splitbytes;
 /* USER CODE END 0 */
 
 int main(void)
@@ -131,6 +137,9 @@ int main(void)
   MX_TIM1_Init();
 
   /* USER CODE BEGIN 2 */
+	//UART TRANSMIT ON DE, (HIGH)
+	HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_SET);
+	
 	HAL_GPIO_WritePin(PWR_LED_GPIO_Port, PWR_LED_Pin, GPIO_PIN_SET);
 	for(int x = 0;x <2; x++)
   {
@@ -146,7 +155,9 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  {
+  {	
+		
+		//HAL_UART_Transmit(&huart2,txdata,6, 40);
 		CH1Rly = 0x0; CH2Rly = 0x0; CH3Rly = 0x0; CH4Rly = 0x0; CH5Rly = 0x0;  CH6Rly = 0x0;
 		sensors 	=	0xFFFFFFFF;
 		miscl = 0xFF;
@@ -301,11 +312,26 @@ int main(void)
 			sensors = (~sensors);
 		}
 		
+		
+		
 		//Read AC-Fail A raw High is fail. So ~(LOW-BAD, HIGH Good)
 		miscl &= ~(	HAL_GPIO_ReadPin(AC_FAIL_GPIO_Port,AC_FAIL_Pin) << 7); //bit 8 
 		miscl &= ~(	HAL_GPIO_ReadPin(CONN_FAIL_GPIO_Port,CONN_FAIL_Pin) << 6); //bit 8 
 		miscl = (~miscl);
-		
+		splitbytes.bit_32 = sensors;
+			for(uint8_t x = 0 ;x<4; x++)
+      {
+				if(x==0)
+				{
+					HAL_UART_Transmit(&huart2, txSE, 1, 10);
+				}
+				HAL_UART_Transmit(&huart2, &splitbytes.bytes[x], 1, 10);//{5-1,5-2,5-3,5-4,6-1,6-2,6-3,6-4}, {3-1,3-2-,3-3,3-4,4-1,4-2-4-3}
+				HAL_UART_Transmit(&huart2, &miscl, 1, 10);
+				if(x==3)
+				{
+					HAL_UART_Transmit(&huart2, &txSE[1], 1, 10);
+				}
+      }
 		trigger();
 		
   /* USER CODE END WHILE */
