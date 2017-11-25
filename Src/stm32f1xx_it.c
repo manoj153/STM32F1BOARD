@@ -193,7 +193,7 @@ void TIM1_UP_TIM16_IRQHandler(void)
   /* USER CODE BEGIN TIM1_UP_TIM16_IRQn 0 */
 		HAL_TIM_IRQHandler(&htim1);
 		countetTIM1 ++;
-		if (countetTIM1 >= 900)
+		if (countetTIM1 >= 300)
 		{
 			buzzorNO = 1;
 			HAL_TIM_Base_Stop(&htim1);
