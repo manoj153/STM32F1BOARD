@@ -332,9 +332,10 @@ int main(void)
 					HAL_UART_Transmit(&huart2, txSE, 1, 10);
 				}
 				HAL_UART_Transmit(&huart2, &splitbytes.bytes[x], 1, 10);//{5-1,5-2,5-3,5-4,6-1,6-2,6-3,6-4}, {3-1,3-2-,3-3,3-4,4-1,4-2-4-3}
-				HAL_UART_Transmit(&huart2, &miscl, 1, 10);
+				
 				if(x==3)
 				{
+					HAL_UART_Transmit(&huart2, &miscl, 1, 10);
 					HAL_UART_Transmit(&huart2, &txSE[1], 1, 10);
 				}
       }
