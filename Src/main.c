@@ -92,6 +92,7 @@ uint32_t Mute_1;
 uint32_t Mute_0;
 uint32_t Pmute_1;
 uint32_t Pmute_0;
+uint8_t slaveR;
 
 _Bool Testpb;
 _Bool TestpbState;
@@ -144,7 +145,8 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
 	//UART TRANSMIT ON DE, (HIGH)
-	HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_SET);
+	
+	HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_RESET);
 	
 	HAL_GPIO_WritePin(PWR_LED_GPIO_Port, PWR_LED_Pin, GPIO_PIN_SET);
 	for(int x = 0;x <2; x++)
@@ -161,8 +163,9 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  {	
-		
+  {
+		slaveR = 0;
+		HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_RESET);
 		//HAL_UART_Transmit(&huart2,txdata,6, 40);
 		CH1Rly = 0x0; CH2Rly = 0x0; CH3Rly = 0x0; CH4Rly = 0x0; CH5Rly = 0x0;  CH6Rly = 0x0;
 		sensors 	=	0xFFFFFFFF;
@@ -325,7 +328,12 @@ int main(void)
 		miscl &= ~(	HAL_GPIO_ReadPin(CONN_FAIL_GPIO_Port,CONN_FAIL_Pin) << 6); //bit 8 
 		miscl = (~miscl);
 		splitbytes.bit_32 = sensors;
-			for(uint8_t x = 0 ;x<4; x++)
+		if(slaveR == 'S')
+		{
+			
+			HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_SET);
+			
+		for(uint8_t x = 0 ;x<4; x++)
       {
 				if(x==0)
 				{
@@ -339,6 +347,8 @@ int main(void)
 					HAL_UART_Transmit(&huart2, &txSE[1], 1, 10);
 				}
       }
+			HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_RESET);
+		}
 		trigger();
 		
   /* USER CODE END WHILE */

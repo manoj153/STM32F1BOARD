@@ -111,6 +111,7 @@ NVIC.PriorityGroup=NVIC_PRIORITYGROUP_4
 NVIC.SVCall_IRQn=true\:0\:0\:false\:false\:true\:true
 NVIC.SysTick_IRQn=true\:0\:0\:false\:false\:true\:true
 NVIC.TIM1_UP_TIM16_IRQn=true\:0\:0\:false\:false\:true\:true
+NVIC.USART2_IRQn=true\:0\:0\:false\:false\:true\:true
 NVIC.UsageFault_IRQn=true\:0\:0\:false\:false\:true\:true
 OSC_IN.Mode=HSE-External-Oscillator
 OSC_IN.Signal=RCC_OSC_IN
