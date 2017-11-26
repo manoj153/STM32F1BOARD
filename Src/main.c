@@ -147,7 +147,7 @@ int main(void)
 	//UART TRANSMIT ON DE, (HIGH)
 	
 	HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_RESET);
-	
+	__HAL_UART_ENABLE_IT(&huart2, UART_IT_RXNE);
 	HAL_GPIO_WritePin(PWR_LED_GPIO_Port, PWR_LED_Pin, GPIO_PIN_SET);
 	for(int x = 0;x <2; x++)
   {
