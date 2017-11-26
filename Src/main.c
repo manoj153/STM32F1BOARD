@@ -175,6 +175,8 @@ int main(void)
 		CH1Rly = 0x0; CH2Rly = 0x0; CH3Rly = 0x0; CH4Rly = 0x0; CH5Rly = 0x0;  CH6Rly = 0x0;
 		sensors 	=	0xFFFFFFFF;
 		miscl = 0xFF;
+		if((rxdata[0] == 'S' && rxdata[6] == 'E' ))
+		{
 		for(uint8_t z =1; z <6; z++)
 		{ 
 			rxdata[z] = ~(rxdata[z]);
@@ -186,8 +188,12 @@ int main(void)
 		sensors &= ~(rxdata[4] << 24);
 		miscl 	&= ~(rxdata[5]);
 		
-		
-		
+		}
+		else
+		{
+			sensors = ~sensors;
+			miscl = ~sensors;
+		}
 
 		trigger();
 	
