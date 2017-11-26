@@ -337,14 +337,14 @@ int main(void)
       {
 				if(x==0)
 				{
-					HAL_UART_Transmit(&huart2, txSE, 1, 5);
+					HAL_UART_Transmit(&huart2, txSE, 1, 100);
 				}
-				HAL_UART_Transmit(&huart2, &splitbytes.bytes[x], 1, 5);//{5-1,5-2,5-3,5-4,6-1,6-2,6-3,6-4}, {3-1,3-2-,3-3,3-4,4-1,4-2-4-3}
+				HAL_UART_Transmit(&huart2, &splitbytes.bytes[x], 1, 100);//{5-1,5-2,5-3,5-4,6-1,6-2,6-3,6-4}, {3-1,3-2-,3-3,3-4,4-1,4-2-4-3}
 				
 				if(x==3)
 				{
-					HAL_UART_Transmit(&huart2, &miscl, 1, 5);
-					HAL_UART_Transmit(&huart2, &txSE[1], 1, 5);
+					HAL_UART_Transmit(&huart2, &miscl, 1, 100);
+					HAL_UART_Transmit(&huart2, &txSE[1], 1, 100);
 				}
       }
 			HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_RESET);
