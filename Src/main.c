@@ -98,6 +98,7 @@ _Bool TestpbState;
 _Bool MutepbState;
 _Bool PmutepbState;
 _Bool PERMENANTMUTE = 1;
+_Bool rxs = 0;
 uint32_t Test_1;
 uint32_t Test_0;
 uint16_t count1;
@@ -165,6 +166,7 @@ int main(void)
   while (1)
   {	
 		HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_SET);
+		rxs = 0;
 		uint8_t testTX = 'S';
 		HAL_UART_Transmit(&huart2,&testTX,1, 70);
 		HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_RESET);
@@ -173,164 +175,30 @@ int main(void)
 		CH1Rly = 0x0; CH2Rly = 0x0; CH3Rly = 0x0; CH4Rly = 0x0; CH5Rly = 0x0;  CH6Rly = 0x0;
 		sensors 	=	0xFFFFFFFF;
 		miscl = 0xFF;
-		dipSWR();
-		if (((dipSW >> 0) & 1))
-		{
-			inverted = 1;
-		}
-		else
-		{
-			inverted = 0;
+		for(uint8_t z =1; z <6; z++)
+		{ 
+			rxdata[z] = ~(rxdata[z]);
 		}
 		
-		if (((dipSW >> 1) & 1)) //CH6 BYP switch check to see to read the value or no
-		{
-			readChannel(6U);
-		}
-		else 
-		{
-		if (inverted)
-		{
-		sensors &= ~((0) << 3);
-		sensors &= ~((0) << 2);
-		sensors &= ~((0) << 1);
-		sensors &= ~((0) << 0);		
-		}
-		else		
-		{
-		sensors &= ~((1) << 3);
-		sensors &= ~((1) << 2);
-		sensors &= ~((1) << 1);
-		sensors &= ~((1) << 0);	
-		}
-		
-		}
-		
-		if (((dipSW >> 2) & 1)) //CH5 BYP switch check to see to read the value or no
-		{
-			readChannel(5U);
-		}
-		else 
-		{
-		if (inverted)
-		{
-		sensors &= ~((0) << 7);
-		sensors &= ~((0) << 6);
-		sensors &= ~((0) << 5);
-		sensors &= ~((0) << 4);	
-		}
-		else
-		{
-		sensors &= ~((1) << 7);
-		sensors &= ~((1) << 6);
-		sensors &= ~((1) << 5);
-		sensors &= ~((1) << 4);	
-		}
-		}
+		sensors &= ~(rxdata[1]);
+		sensors &= ~(rxdata[2] << 8);
+		sensors &= ~(rxdata[3] << 16);
+		sensors &= ~(rxdata[4] << 24);
+		miscl 	&= ~(rxdata[5]);
 		
 		
-		if (((dipSW >> 3) & 1)) //CH4 BYP switch check to see to read the value or no
-		{
-			readChannel(4U);
-		}
-		else 
-		{
-			if (inverted)
-			{
-		sensors &= ~((0) << 11);
-		sensors &= ~((0) << 10);
-		sensors &= ~((0) << 9);
-		sensors &= ~((0) << 8);
-			}
-			else
-			{
-		sensors &= ~((1) << 11);
-		sensors &= ~((1) << 10);
-		sensors &= ~((1) << 9);
-		sensors &= ~((1) << 8);
-			}
-				
 		
-		}
-		
-		if (((dipSW >> 4) & 1)) //CH3 BYP switch check to see to read the value or no
-		{
-			readChannel(3U);
-		}
-		else 
-		{
-				if (inverted)
-				{
-		sensors &= ~((0) << 15);
-		sensors &= ~((0) << 14);
-		sensors &= ~((0) << 13);
-		sensors &= ~((0) << 12);
-				}
-				else 
-				{
-		sensors &= ~((1) << 15);
-		sensors &= ~((1) << 14);
-		sensors &= ~((1) << 13);
-		sensors &= ~((1) << 12);
-				}
-		}
-		
-		if (((dipSW >> 5) & 1)) //CH2 BYP switch check to see to read the value or no
-		{
-			readChannel(2U);
-		}
-		else 
-		{
-		if (inverted)
-		{			
-		sensors &= ~((0) << 19);
-		sensors &= ~((0) << 18);
-		sensors &= ~((0) << 17);
-		sensors &= ~((0) << 16);
-		}
-		else
-		{
-		sensors &= ~((1) << 19);
-		sensors &= ~((1) << 18);
-		sensors &= ~((1) << 17);
-		sensors &= ~((1) << 16);
-		}
-		}
-		
-		if (((dipSW >> 6) & 1)) //CH1 BYP switch check to see to read the value or no
-		{
-			readChannel(1U);
-		}
-		else 
-		{
-		if (inverted)
-		{
-		sensors &= ~((0) << 23);
-		sensors &= ~((0) << 22);
-		sensors &= ~((0) << 21);
-		sensors &= ~((0) << 20);
-		}
-		else
-		{
-		sensors &= ~((1) << 23);
-		sensors &= ~((1) << 22);
-		sensors &= ~((1) << 21);
-		sensors &= ~((1) << 20);
-		}
-	}
-		
-		if (inverted)
-		{
-			sensors = (~sensors);
-		}
+
+		trigger();
+	
 		
 		
 		
 		//Read AC-Fail A raw High is fail. So ~(LOW-BAD, HIGH Good)
-		miscl &= ~(	HAL_GPIO_ReadPin(AC_FAIL_GPIO_Port,AC_FAIL_Pin) << 7); //bit 8 
-		miscl &= ~(	HAL_GPIO_ReadPin(CONN_FAIL_GPIO_Port,CONN_FAIL_Pin) << 6); //bit 8 
-		miscl = (~miscl);
-		splitbytes.bit_32 = sensors;
+		//miscl &= ~(	HAL_GPIO_ReadPin(AC_FAIL_GPIO_Port,AC_FAIL_Pin) << 7); //bit 8 
+		//miscl &= ~(	HAL_GPIO_ReadPin(CONN_FAIL_GPIO_Port,CONN_FAIL_Pin) << 6); //bit 8 
+		//miscl = (~miscl);
+		//Ssplitbytes.bit_32 = sensors;
 //			for(uint8_t x = 0 ;x<4; x++)
 //      {
 //				if(x==0)
