@@ -168,7 +168,7 @@ int main(void)
 		uint8_t testTX = 'S';
 		HAL_UART_Transmit(&huart2,&testTX,1, 70);
 		HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_RESET);
-		HAL_Delay(1000);
+		HAL_Delay(2500);
 		//HAL_UART_Receive(&huart2, rxdata, 7, 780);
 		CH1Rly = 0x0; CH2Rly = 0x0; CH3Rly = 0x0; CH4Rly = 0x0; CH5Rly = 0x0;  CH6Rly = 0x0;
 		sensors 	=	0xFFFFFFFF;
