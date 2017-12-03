@@ -78,13 +78,14 @@ void buzz(uint32_t rounds);
 void delayUS(uint32_t us);
 void testRun(void);
 void onallLED(void);
+void offallLED(void);
 /* Variables Start */
 uint32_t dipSW 		= 0xFFFFFFFF;
 uint32_t sensors 	=	0xFFFFFFFF;
 uint8_t miscl = 0xFF;
 _Bool inverted;
 _Bool test;
-_Bool CH1Rly, CH2Rly, CH3Rly, CH4Rly, CH5Rly, CH6Rly = 0x0;
+_Bool CH1Rly, CH2Rly, CH3Rly, CH4Rly, CH5Rly, CH6Rly, PWRORCOM = 0x0;
 _Bool Mutepb;
 _Bool Pmutepb = 1;
 _Bool buzzorNO  = 1;
@@ -194,7 +195,12 @@ int main(void)
 			sensors = ~sensors;
 			miscl = ~sensors;
 		}
-
+		HAL_Delay(500);
+		offallLED();
+		if(~(buzzorNO & PERMENANTMUTE)& 1) // Check if buzzer on/off, to delay
+		{
+			HAL_Delay(1000);
+		}
 		trigger();
 	
 		
@@ -580,6 +586,34 @@ void readChannel(uint8_t chWhat)
 
 void trigger(void)
 {
+	HAL_Delay(500);
+	if ((((miscl >> 7) ^ 1 )&1 ) & (((miscl >> 6) ^ 1 )&1))
+	{
+		PWRORCOM = 0x00;
+		HAL_GPIO_WritePin(PWR_LED_GPIO_Port, PWR_LED_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(PWR_SYSF_GPIO_Port, PWR_SYSF_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(ASYS_F_GPIO_Port, ASYS_F_Pin, GPIO_PIN_RESET);				
+	}
+	else
+	{
+		PWRORCOM = 0x01;
+		HAL_GPIO_WritePin(PWR_LED_GPIO_Port, PWR_LED_Pin, GPIO_PIN_RESET);
+	if ((miscl >> 7) & 1)
+	{
+		
+		HAL_GPIO_WritePin(PWR_SYSF_GPIO_Port, PWR_SYSF_Pin, GPIO_PIN_SET);
+		
+	}
+	
+	if ((miscl >> 6) & 1)
+	{
+		HAL_GPIO_WritePin(ASYS_F_GPIO_Port, ASYS_F_Pin, GPIO_PIN_SET);
+		//HAL_Delay(200);
+		
+	}
+	
+	}
+
 	if(TestpbState == 1)
 	{
 		buzz(1);
@@ -617,7 +651,7 @@ void trigger(void)
 		//Each individual red led trigger CH6-1 -> CH1-1
 		if((sensors >> 0) & 1)
 		{
-			HAL_GPIO_WritePin(CH6R_4_GPIO_Port, CH6R_4_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH6R_4_GPIO_Port, CH6R_4_Pin);
 		}
 		else
 		{
@@ -625,7 +659,7 @@ void trigger(void)
 		}
 		if((sensors >> 1) & 1)
 		{
-			HAL_GPIO_WritePin(CH6R_3_GPIO_Port, CH6R_3_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH6R_3_GPIO_Port, CH6R_3_Pin);
 		}
 		else 
 		{
@@ -633,7 +667,7 @@ void trigger(void)
 		}
 		if((sensors >> 2) & 1)
 		{
-			HAL_GPIO_WritePin(CH6R_2_GPIO_Port, CH6R_2_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH6R_2_GPIO_Port, CH6R_2_Pin);
 		}
 		else 
 		{
@@ -641,7 +675,7 @@ void trigger(void)
 		}
 		if((sensors >> 3) & 1)
 		{
-			HAL_GPIO_WritePin(CH6R_1_GPIO_Port, CH6R_1_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH6R_1_GPIO_Port, CH6R_1_Pin);
 		}
 		else
 		{
@@ -702,7 +736,7 @@ void trigger(void)
 		}
 		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
-			if ((((sensors >> 8) ^ 1) &1) && (((sensors >> 9) ^ 1 )&1) && (((sensors >> 10) ^ 1)&1) && (((sensors >> 11) ^ 1)&1))
+		if ((((sensors >> 8) ^ 1) &1) && (((sensors >> 9) ^ 1 )&1) && (((sensors >> 10) ^ 1)&1) && (((sensors >> 11) ^ 1)&1))
 	{
 		//Turn ON Green LED for CH4
 		HAL_GPIO_WritePin(CH4G_4_GPIO_Port, CH4G_4_Pin, GPIO_PIN_SET);
@@ -720,7 +754,7 @@ void trigger(void)
 		//Each individual red led trigger CH4-1 -> CH1-1
 		if((sensors >> 8) & 1)
 		{
-			HAL_GPIO_WritePin(CH4R_4_GPIO_Port, CH4R_4_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH4R_4_GPIO_Port, CH4R_4_Pin);
 		}
 		else 
 		{
@@ -729,7 +763,7 @@ void trigger(void)
 			
 		if((sensors >> 9) & 1)
 		{
-			HAL_GPIO_WritePin(CH4R_3_GPIO_Port, CH4R_3_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH4R_3_GPIO_Port, CH4R_3_Pin);
 		}
 		else
 		{
@@ -737,7 +771,7 @@ void trigger(void)
 		}
 		if((sensors >> 10) & 1)
 		{
-			HAL_GPIO_WritePin(CH4R_2_GPIO_Port, CH4R_2_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH4R_2_GPIO_Port, CH4R_2_Pin);
 		}
 		else
 		{
@@ -746,7 +780,7 @@ void trigger(void)
 			
 		if((sensors >> 11) & 1)
 		{
-			HAL_GPIO_WritePin(CH4R_1_GPIO_Port, CH4R_1_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH4R_1_GPIO_Port, CH4R_1_Pin);
 		}
 		else 
 		{
@@ -773,7 +807,7 @@ void trigger(void)
 		//Each individual red led trigger CH3-1 -> CH1-1
 		if((sensors >> 12) & 1)
 		{
-			HAL_GPIO_WritePin(CH3R_4_GPIO_Port, CH3R_4_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH3R_4_GPIO_Port, CH3R_4_Pin);
 		}
 		else 
 		{
@@ -782,7 +816,7 @@ void trigger(void)
 			
 		if((sensors >> 13) & 1)
 		{
-			HAL_GPIO_WritePin(CH3R_3_GPIO_Port, CH3R_3_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH3R_3_GPIO_Port, CH3R_3_Pin);
 		}
 		else
 		{
@@ -790,7 +824,7 @@ void trigger(void)
 		}
 		if((sensors >> 14) & 1)
 		{
-			HAL_GPIO_WritePin(CH3R_2_GPIO_Port, CH3R_2_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH3R_2_GPIO_Port, CH3R_2_Pin);
 		}
 		else
 		{
@@ -799,7 +833,7 @@ void trigger(void)
 			
 		if((sensors >> 15) & 1)
 		{
-			HAL_GPIO_WritePin(CH3R_1_GPIO_Port, CH3R_1_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH3R_1_GPIO_Port, CH3R_1_Pin);
 		}
 		else 
 		{
@@ -825,7 +859,7 @@ void trigger(void)
 		//Each individual red led trigger CH2-1 -> CH1-1
 		if((sensors >> 16) & 1)
 		{
-			HAL_GPIO_WritePin(CH2R_4_GPIO_Port, CH2R_4_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH2R_4_GPIO_Port, CH2R_4_Pin);
 		}
 		else 
 		{
@@ -834,7 +868,7 @@ void trigger(void)
 			
 		if((sensors >> 17) & 1)
 		{
-			HAL_GPIO_WritePin(CH2R_3_GPIO_Port, CH2R_3_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH2R_3_GPIO_Port, CH2R_3_Pin);
 		}
 		else
 		{
@@ -842,7 +876,7 @@ void trigger(void)
 		}
 		if((sensors >> 18) & 1)
 		{
-			HAL_GPIO_WritePin(CH2R_2_GPIO_Port, CH2R_2_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH2R_2_GPIO_Port, CH2R_2_Pin);
 		}
 		else
 		{
@@ -851,7 +885,7 @@ void trigger(void)
 			
 		if((sensors >> 19) & 1)
 		{
-			HAL_GPIO_WritePin(CH2R_1_GPIO_Port, CH2R_1_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH2R_1_GPIO_Port, CH2R_1_Pin);
 		}
 		else 
 		{
@@ -877,7 +911,7 @@ void trigger(void)
 		//Each individual red led trigger CH1-1 -> CH1-1
 		if((sensors >> 20) & 1)
 		{
-			HAL_GPIO_WritePin(CH1R_4_GPIO_Port, CH1R_4_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH1R_4_GPIO_Port, CH1R_4_Pin);
 		}
 		else 
 		{
@@ -886,7 +920,7 @@ void trigger(void)
 			
 		if((sensors >> 21) & 1)
 		{
-			HAL_GPIO_WritePin(CH1R_3_GPIO_Port, CH1R_3_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH1R_3_GPIO_Port, CH1R_3_Pin);
 		}
 		else
 		{
@@ -894,7 +928,7 @@ void trigger(void)
 		}
 		if((sensors >> 22) & 1)
 		{
-			HAL_GPIO_WritePin(CH1R_2_GPIO_Port, CH1R_2_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH1R_2_GPIO_Port, CH1R_2_Pin);
 		}
 		else
 		{
@@ -903,7 +937,7 @@ void trigger(void)
 			
 		if((sensors >> 23) & 1)
 		{
-			HAL_GPIO_WritePin(CH1R_1_GPIO_Port, CH1R_1_Pin, GPIO_PIN_SET);
+			HAL_GPIO_TogglePin(CH1R_1_GPIO_Port, CH1R_1_Pin);
 		}
 		else 
 		{
@@ -913,33 +947,22 @@ void trigger(void)
 	}
 	
 	//PowerSYS fail
-	if ((miscl >> 7) & 1)
-	{
-		HAL_GPIO_WritePin(PWR_SYSF_GPIO_Port, PWR_SYSF_Pin, GPIO_PIN_SET);
-		buzz(1);
-	}
-	else
-	{
-		HAL_GPIO_WritePin(PWR_SYSF_GPIO_Port, PWR_SYSF_Pin, GPIO_PIN_RESET);
-	}
-	if ((miscl >> 6) & 1)
-	{
-		HAL_GPIO_WritePin(ASYS_F_GPIO_Port, ASYS_F_Pin, GPIO_PIN_SET);
-		buzz(1);
-	}
-	else
-	{
-		HAL_GPIO_WritePin(ASYS_F_GPIO_Port, ASYS_F_Pin, GPIO_PIN_RESET);
-	}
-	if((CH1Rly | CH2Rly | CH3Rly | CH4Rly | CH5Rly | CH6Rly))
+	if((CH1Rly | CH2Rly | CH3Rly | CH4Rly | CH5Rly | CH6Rly| PWRORCOM))
 	{
 		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 		buzz(1);
+		
 	}
 	else
 	{
 		HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_RESET);
 	}
+	
+	if(~(buzzorNO & PERMENANTMUTE)& 1) // Check if buzzer on/off, to delay
+		{
+			HAL_Delay(1000);
+		}
+	
 }
 
 void buzz(uint32_t rounds)
@@ -1150,6 +1173,51 @@ void delayUS(uint32_t us)
 		 
 	 }
  }
+ 
+ void offallLED(){
+		
+		
+		//#Toggle 1-6CH, Red LED  (4*6 = 24)
+		//#CH1R-1 - CH1R-4
+		HAL_GPIO_WritePin(CH1R_1_GPIO_Port, CH1R_1_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH1R_2_GPIO_Port, CH1R_2_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH1R_3_GPIO_Port, CH1R_3_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH1R_4_GPIO_Port, CH1R_4_Pin,GPIO_PIN_RESET);
+		
+		//#CH2R-1 - CH2R-4
+		HAL_GPIO_WritePin(CH2R_1_GPIO_Port, CH2R_1_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH2R_2_GPIO_Port, CH2R_2_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH2R_3_GPIO_Port, CH2R_3_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH2R_4_GPIO_Port, CH2R_4_Pin,GPIO_PIN_RESET);
+		//#CH3R-1 - CH3R-4
+		HAL_GPIO_WritePin(CH3R_1_GPIO_Port, CH3R_1_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH3R_2_GPIO_Port, CH3R_2_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH3R_3_GPIO_Port, CH3R_3_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH3R_4_GPIO_Port, CH3R_4_Pin,GPIO_PIN_RESET);
+		//#CH4R-1 - CH4R-4
+		HAL_GPIO_WritePin(CH4R_1_GPIO_Port, CH4R_1_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH4R_2_GPIO_Port, CH4R_2_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH4R_3_GPIO_Port, CH4R_3_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH4R_4_GPIO_Port, CH4R_4_Pin,GPIO_PIN_RESET);
+		
+		//#CH5R-1 - CH5R-4
+		HAL_GPIO_WritePin(CH5R_1_GPIO_Port, CH5R_1_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH5R_2_GPIO_Port, CH5R_2_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH5R_3_GPIO_Port, CH5R_3_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH5R_4_GPIO_Port, CH5R_4_Pin,GPIO_PIN_RESET);
+		
+		//#CH6R-1 - CH6-4
+		HAL_GPIO_WritePin(CH6R_1_GPIO_Port, CH6R_1_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH6R_2_GPIO_Port, CH6R_2_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH6R_3_GPIO_Port, CH6R_3_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(CH6R_4_GPIO_Port, CH6R_4_Pin,GPIO_PIN_RESET);
+		
+		HAL_GPIO_WritePin(ASYS_F_GPIO_Port, ASYS_F_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(PWR_SYSF_GPIO_Port, PWR_SYSF_Pin,GPIO_PIN_RESET);
+		//HAL_GPIO_WritePin(PWR_LED_GPIO_Port, PWR_LED_Pin,GPIO_PIN_RESET);
+	}
+ 
+	
 	
 /* USER CODE END 4 */
 
