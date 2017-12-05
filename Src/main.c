@@ -192,8 +192,10 @@ int main(void)
 		}
 		else
 		{
-			sensors = ~sensors;
-			miscl = ~sensors;
+			//DATA coruppted, On all green led Turn off RED LEDS,
+			
+			sensors = 0x00;
+			miscl = 0x00;
 		}
 		HAL_Delay(500);
 		offallLED();
