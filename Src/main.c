@@ -178,6 +178,7 @@ int main(void)
 		miscl = 0xFF;
 		if((rxdata[0] == 'S' && rxdata[6] == 'E' ))
 		{
+			rxdata[0] = 'X';
 		for(uint8_t z =1; z <6; z++)
 		{ 
 			rxdata[z] = ~(rxdata[z]);
@@ -194,8 +195,8 @@ int main(void)
 		{
 			//DATA coruppted, On all green led Turn off RED LEDS,
 			
-			sensors = 0x00;
-			miscl = 0x00;
+			sensors = 0x00000000;
+			miscl = 	0x00;
 		}
 		HAL_Delay(500);
 		offallLED();
@@ -204,7 +205,7 @@ int main(void)
 			HAL_Delay(1000);
 		}
 		trigger();
-	
+		
 		
 		
 		
