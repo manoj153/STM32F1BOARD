@@ -104,10 +104,19 @@ uint32_t Test_1;
 uint32_t Test_0;
 uint16_t count1;
 uint16_t countetTIM1 = 0;
+_Bool GBYP1, GBYP2, GBYP3, GBYP4, GBYP5, GBYP6;
+uint32_t Cpysensors   =  0xFFFFFFFF;
+uint8_t Cpymiscl = 0xFF;
+ _Bool pointRorC = 1;
+ 
+
+ 
+ 
+
 
 uint8_t txSE[] = "SE";
 //UART Receiving DATA variables
-uint8_t rxdata[7];
+uint8_t rxdata[8];
 /* Variables Ends*/
  void dipSWR(void);
  union  
@@ -167,6 +176,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {	
+		    GBYP1 = 0x01; GBYP2 = 0x01; GBYP3 = 0x01; GBYP4= 0x01; GBYP5= 0x01; GBYP6= 0x01;
+ 
+
 //		HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_SET);
 //		rxs = 0;
 //		uint8_t testTX = 'S';
@@ -177,7 +189,7 @@ int main(void)
 		CH1Rly = 0x0; CH2Rly = 0x0; CH3Rly = 0x0; CH4Rly = 0x0; CH5Rly = 0x0;  CH6Rly = 0x0;
 		sensors 	=	0xFFFFFFFF;
 		miscl = 0xFF;
-		if((rxdata[0] == 'S' && rxdata[6] == 'E' ))
+		if((rxdata[0] == 'S' && rxdata[7] == 'E' ))
 		{
 			rxdata[0] = 'X';
 		for(uint8_t z =1; z <6; z++)
@@ -190,7 +202,13 @@ int main(void)
 		sensors &= ~(rxdata[3] << 16);
 		sensors &= ~(rxdata[4] << 24);
 		miscl 	&= ~(rxdata[5]);
-		
+		//extra 1 byte
+		GBYP1 =  (rxdata[6] >> 0)& 1; // ch1 
+		GBYP2 =  (rxdata[6] >> 1)& 1;
+		GBYP3 =  (rxdata[6] >> 2)& 1;
+		GBYP4 =  (rxdata[6] >> 3)& 1;
+		GBYP5 =  (rxdata[6] >> 4)& 1;
+		GBYP6 =  (rxdata[6] >> 5)& 1;
 		}
 		else
 		{
@@ -201,6 +219,50 @@ int main(void)
 		}
 		HAL_Delay(500);
 		offallLED();
+		switch(pointRorC)
+ 
+    {
+ 
+      case 1:
+ 
+        Cpymiscl = miscl;
+ 
+        Cpysensors = sensors;
+ 
+        pointRorC = 0;
+ 
+        break;
+ 
+      case 0:
+ 
+      if(Cpymiscl != miscl)
+ 
+      {
+ 
+        PERMENANTMUTE = 1; buzzorNO = 1;
+ 
+      }
+ 
+      
+ 
+      if(Cpysensors!= sensors)
+ 
+      {
+ 
+        PERMENANTMUTE = 1; buzzorNO = 1;
+ 
+      }
+ 
+      pointRorC = 1;
+ 
+        break;
+ 
+      default:
+ 
+        break;
+ 
+    }
+ 
 		if(~(buzzorNO & PERMENANTMUTE)& 1) // Check if buzzer on/off, to delay
 		{
 			HAL_Delay(1000);
@@ -637,7 +699,7 @@ void trigger(void)
 	test = ((sensors) ^ (1)) & 1; 
 	//test = ((sensors >> 0 ^ 1) && (sensors >> 1 ^ 1 ) && ((sensors >> 2) ^ 1) && (sensors >> 3 ^ 1)) ; 
 	//CH6, Green ligth // All Trigger 0,  ()
-	if ((((sensors >> 0) ^ 1 )&1 ) & (((sensors >> 1) ^ 1 )&1) & (((sensors >> 2) ^ 1) &1) & (((sensors >> 3) ^ 1)&1))
+	if ((((sensors >> 0) ^ 1 )&1 ) & (((sensors >> 1) ^ 1 )&1) & (((sensors >> 2) ^ 1) &1) & (((sensors >> 3) ^ 1)&1)& (GBYP6))
 	{
 		//Turn ON Green LED for CH6
 		HAL_GPIO_WritePin(CH6G_6_GPIO_Port, CH6G_6_Pin, GPIO_PIN_SET);
@@ -688,7 +750,7 @@ void trigger(void)
 			
 		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
-		if ((((sensors >> 4) ^ 1) &1) && (((sensors >> 5) ^ 1 )&1) && (((sensors >> 6) ^ 1)&1) && (((sensors >> 7) ^ 1)&1))
+		if ((((sensors >> 4) ^ 1) &1) && (((sensors >> 5) ^ 1 )&1) && (((sensors >> 6) ^ 1)&1) && (((sensors >> 7) ^ 1)&1)& (GBYP5))
 	{
 		//Turn ON Green LED for CH5
 		HAL_GPIO_WritePin(CH5G_5_GPIO_Port, CH5G_5_Pin, GPIO_PIN_SET);
@@ -740,7 +802,7 @@ void trigger(void)
 		}
 		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
-		if ((((sensors >> 8) ^ 1) &1) && (((sensors >> 9) ^ 1 )&1) && (((sensors >> 10) ^ 1)&1) && (((sensors >> 11) ^ 1)&1))
+		if ((((sensors >> 8) ^ 1) &1) && (((sensors >> 9) ^ 1 )&1) && (((sensors >> 10) ^ 1)&1) && (((sensors >> 11) ^ 1)&1)& (GBYP4))
 	{
 		//Turn ON Green LED for CH4
 		HAL_GPIO_WritePin(CH4G_4_GPIO_Port, CH4G_4_Pin, GPIO_PIN_SET);
@@ -793,7 +855,7 @@ void trigger(void)
 		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
 	
-	if ((((sensors >> 12) ^ 1)&1) && (((sensors >> 13) ^ 1 )&1) && (((sensors >> 14) ^ 1)&1) && (((sensors >> 15) ^ 1)&1))
+	if ((((sensors >> 12) ^ 1)&1) && (((sensors >> 13) ^ 1 )&1) && (((sensors >> 14) ^ 1)&1) && (((sensors >> 15) ^ 1)&1)& (GBYP3))
 	{
 		//Turn ON Green LED for CH3
 		HAL_GPIO_WritePin(CH3G_3_GPIO_Port, CH3G_3_Pin, GPIO_PIN_SET);
@@ -845,7 +907,7 @@ void trigger(void)
 		}
 		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
-	if ((((sensors >> 16) ^ 1)&1) && (((sensors >> 17) ^1) & 1 ) && (((sensors >> 18) ^ 1)&1) && (((sensors >> 19) ^ 1 )&1))
+	if ((((sensors >> 16) ^ 1)&1) && (((sensors >> 17) ^1) & 1 ) && (((sensors >> 18) ^ 1)&1) && (((sensors >> 19) ^ 1 )&1)& (GBYP2))
 	{
 		//Turn ON Green LED for CH2
 		HAL_GPIO_WritePin(CH2G_2_GPIO_Port, CH2G_2_Pin, GPIO_PIN_SET);
@@ -897,7 +959,7 @@ void trigger(void)
 		}
 		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
-	if ((((sensors >> 20) ^ 1)&1) && (((sensors >> 21) ^1  )&1) && (((sensors >> 22) ^ 1)&1) && (((sensors >> 23) ^1) &1))
+	if ((((sensors >> 20) ^ 1)&1) && (((sensors >> 21) ^1  )&1) && (((sensors >> 22) ^ 1)&1) && (((sensors >> 23) ^1) &1)& (GBYP1))
 	{
 		//Turn ON Green LED for CH1
 		HAL_GPIO_WritePin(CH1G_1_GPIO_Port, CH1G_1_Pin, GPIO_PIN_SET);
