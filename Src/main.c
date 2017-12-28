@@ -148,7 +148,8 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
 	//UART TRANSMIT ON DE, (HIGH) LOW for Rx
-	HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_SET);
+	//HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_RESET);
 	__HAL_UART_ENABLE_IT(&huart2, UART_IT_RXNE);
 	HAL_GPIO_WritePin(PWR_LED_GPIO_Port, PWR_LED_Pin, GPIO_PIN_SET);
 	for(int x = 0;x <2; x++)
@@ -166,10 +167,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {	
-		HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_SET);
-		rxs = 0;
-		uint8_t testTX = 'S';
-		HAL_UART_Transmit(&huart2,&testTX,1, 70);
+//		HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_SET);
+//		rxs = 0;
+//		uint8_t testTX = 'S';
+//		HAL_UART_Transmit(&huart2,&testTX,1, 70);
 		HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_RESET);
 		HAL_Delay(2500);
 		//HAL_UART_Receive(&huart2, rxdata, 7, 780);
