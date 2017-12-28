@@ -105,6 +105,8 @@ uint32_t Test_0;
 uint16_t count1;
 uint16_t countetTIM1 = 0;
 
+_Bool GBYP1, GBYP2, GBYP3, GBYP4, GBYP5, GBYP6;
+
 uint8_t txSE[] = "SE";
 /* Variables Ends*/
  void dipSWR(void);
@@ -169,6 +171,7 @@ int main(void)
 		HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_RESET);
 		//HAL_UART_Transmit(&huart2,txdata,6, 40);
 		CH1Rly = 0x0; CH2Rly = 0x0; CH3Rly = 0x0; CH4Rly = 0x0; CH5Rly = 0x0;  CH6Rly = 0x0; PWRORCOM = 0x0;
+		GBYP1 = 0x01; GBYP2 = 0x01; GBYP3 = 0x01; GBYP4= 0x01; GBYP5= 0x01; GBYP6= 0x01;
 		sensors 	=	0xFFFFFFFF;
 		miscl = 0xFF;
 		dipSWR();
@@ -201,7 +204,7 @@ int main(void)
 		sensors &= ~((1) << 1);
 		sensors &= ~((1) << 0);	
 		}
-		
+		GBYP6= 0x00;
 		}
 		
 		if (((dipSW >> 2) & 1)) //CH5 BYP switch check to see to read the value or no
@@ -224,6 +227,8 @@ int main(void)
 		sensors &= ~((1) << 5);
 		sensors &= ~((1) << 4);	
 		}
+		
+		GBYP5= 0x00;
 		}
 		
 		
@@ -248,7 +253,7 @@ int main(void)
 		sensors &= ~((1) << 8);
 			}
 				
-		
+		GBYP4= 0x00;
 		}
 		
 		if (((dipSW >> 4) & 1)) //CH3 BYP switch check to see to read the value or no
@@ -271,6 +276,8 @@ int main(void)
 		sensors &= ~((1) << 13);
 		sensors &= ~((1) << 12);
 				}
+				
+				GBYP3= 0x00;
 		}
 		
 		if (((dipSW >> 5) & 1)) //CH2 BYP switch check to see to read the value or no
@@ -293,6 +300,9 @@ int main(void)
 		sensors &= ~((1) << 17);
 		sensors &= ~((1) << 16);
 		}
+		
+		GBYP2= 0x00;
+		
 		}
 		
 		if (((dipSW >> 6) & 1)) //CH1 BYP switch check to see to read the value or no
@@ -315,6 +325,8 @@ int main(void)
 		sensors &= ~((1) << 21);
 		sensors &= ~((1) << 20);
 		}
+		
+		GBYP1 = 0x00;
 	}
 		
 		if (inverted)
@@ -778,7 +790,7 @@ void trigger(void)
 	test = ((sensors) ^ (1)) & 1; 
 	//test = ((sensors >> 0 ^ 1) && (sensors >> 1 ^ 1 ) && ((sensors >> 2) ^ 1) && (sensors >> 3 ^ 1)) ; 
 	//CH6, Green ligth // All Trigger 0,  ()
-	if ((((sensors >> 0) ^ 1 )&1 ) & (((sensors >> 1) ^ 1 )&1) & (((sensors >> 2) ^ 1) &1) & (((sensors >> 3) ^ 1)&1))
+	if ((((sensors >> 0) ^ 1 )&1 ) & (((sensors >> 1) ^ 1 )&1) & (((sensors >> 2) ^ 1) &1) & (((sensors >> 3) ^ 1)&1)& (GBYP6))
 	{
 		//Turn ON Green LED for CH6
 		HAL_GPIO_WritePin(CH6G_6_GPIO_Port, CH6G_6_Pin, GPIO_PIN_SET);
@@ -792,6 +804,10 @@ void trigger(void)
 	else
 	{
 		CH6Rly = 0x01;
+		if((GBYP6) == 0x00)
+		{
+			CH6Rly = 0x00;
+		}
 		HAL_GPIO_WritePin(CH6G_6_GPIO_Port, CH6G_6_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH6-1 -> CH1-1
 		if((sensors >> 0) & 1)
@@ -829,7 +845,7 @@ void trigger(void)
 			
 		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
-		if ((((sensors >> 4) ^ 1) &1) && (((sensors >> 5) ^ 1 )&1) && (((sensors >> 6) ^ 1)&1) && (((sensors >> 7) ^ 1)&1))
+		if ((((sensors >> 4) ^ 1) &1) && (((sensors >> 5) ^ 1 )&1) && (((sensors >> 6) ^ 1)&1) && (((sensors >> 7) ^ 1)&1)& (GBYP5))
 	{
 		//Turn ON Green LED for CH5
 		HAL_GPIO_WritePin(CH5G_5_GPIO_Port, CH5G_5_Pin, GPIO_PIN_SET);
@@ -843,6 +859,10 @@ void trigger(void)
 	else
 	{
 		CH5Rly = 0x01;
+		if((GBYP5) == 0x00)
+		{
+			CH5Rly = 0x00;
+		}
 		HAL_GPIO_WritePin(CH5G_5_GPIO_Port, CH5G_5_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH5-1 -> CH1-1
 		if((sensors >> 4) & 1)
@@ -881,7 +901,7 @@ void trigger(void)
 		}
 		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
-		if ((((sensors >> 8) ^ 1) &1) && (((sensors >> 9) ^ 1 )&1) && (((sensors >> 10) ^ 1)&1) && (((sensors >> 11) ^ 1)&1))
+		if ((((sensors >> 8) ^ 1) &1) && (((sensors >> 9) ^ 1 )&1) && (((sensors >> 10) ^ 1)&1) && (((sensors >> 11) ^ 1)&1)& (GBYP4))
 	{
 		//Turn ON Green LED for CH4
 		HAL_GPIO_WritePin(CH4G_4_GPIO_Port, CH4G_4_Pin, GPIO_PIN_SET);
@@ -895,6 +915,10 @@ void trigger(void)
 	else
 	{
 		CH4Rly = 0x01;
+		if((GBYP4) == 0x00)
+		{
+			CH4Rly = 0x00;
+		}
 		HAL_GPIO_WritePin(CH4G_4_GPIO_Port, CH4G_4_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH4-1 -> CH1-1
 		if((sensors >> 8) & 1)
@@ -934,7 +958,7 @@ void trigger(void)
 		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
 	
-	if ((((sensors >> 12) ^ 1)&1) && (((sensors >> 13) ^ 1 )&1) && (((sensors >> 14) ^ 1)&1) && (((sensors >> 15) ^ 1)&1))
+	if ((((sensors >> 12) ^ 1)&1) && (((sensors >> 13) ^ 1 )&1) && (((sensors >> 14) ^ 1)&1) && (((sensors >> 15) ^ 1)&1)& (GBYP3))
 	{
 		//Turn ON Green LED for CH3
 		HAL_GPIO_WritePin(CH3G_3_GPIO_Port, CH3G_3_Pin, GPIO_PIN_SET);
@@ -948,6 +972,10 @@ void trigger(void)
 	else
 	{
 		CH3Rly = 0x01;
+		if((GBYP3) == 0x00)
+		{
+			CH3Rly = 0x00;
+		}
 		HAL_GPIO_WritePin(CH3G_3_GPIO_Port, CH3G_3_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH3-1 -> CH1-1
 		if((sensors >> 12) & 1)
@@ -986,7 +1014,7 @@ void trigger(void)
 		}
 		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
-	if ((((sensors >> 16) ^ 1)&1) && (((sensors >> 17) ^1) & 1 ) && (((sensors >> 18) ^ 1)&1) && (((sensors >> 19) ^ 1 )&1))
+	if ((((sensors >> 16) ^ 1)&1) && (((sensors >> 17) ^1) & 1 ) && (((sensors >> 18) ^ 1)&1) && (((sensors >> 19) ^ 1 )&1)& (GBYP2))
 	{
 		//Turn ON Green LED for CH2
 		HAL_GPIO_WritePin(CH2G_2_GPIO_Port, CH2G_2_Pin, GPIO_PIN_SET);
@@ -1000,6 +1028,10 @@ void trigger(void)
 	else
 	{
 		CH2Rly = 0x01;
+		if((GBYP2) == 0x00)
+		{
+			CH2Rly = 0x00;
+		}
 		HAL_GPIO_WritePin(CH2G_2_GPIO_Port, CH2G_2_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH2-1 -> CH1-1
 		if((sensors >> 16) & 1)
@@ -1038,7 +1070,7 @@ void trigger(void)
 		}
 		//HAL_GPIO_WritePin(RLY1_GPIO_Port, RLY1_Pin, GPIO_PIN_SET);
 	}
-	if ((((sensors >> 20) ^ 1)&1) && (((sensors >> 21) ^1  )&1) && (((sensors >> 22) ^ 1)&1) && (((sensors >> 23) ^1) &1))
+	if ((((sensors >> 20) ^ 1)&1) && (((sensors >> 21) ^1  )&1) && (((sensors >> 22) ^ 1)&1) && (((sensors >> 23) ^1) &1)&& (GBYP1))
 	{
 		//Turn ON Green LED for CH1
 		HAL_GPIO_WritePin(CH1G_1_GPIO_Port, CH1G_1_Pin, GPIO_PIN_SET);
@@ -1052,6 +1084,10 @@ void trigger(void)
 	else
 	{
 		CH1Rly = 0x01;
+		if((GBYP1) == 0x00)
+		{
+			CH1Rly = 0x00;
+		}
 		HAL_GPIO_WritePin(CH1G_1_GPIO_Port, CH1G_1_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH1-1 -> CH1-1
 		if((sensors >> 20) & 1)
