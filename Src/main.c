@@ -82,7 +82,9 @@ void offallLED(void);
 /* Variables Start */
 uint32_t dipSW 		= 0xFFFFFFFF;
 uint32_t sensors 	=	0xFFFFFFFF;
+uint32_t Cpysensors 	=	0xFFFFFFFF;
 uint8_t miscl = 0xFF;
+uint8_t Cpymiscl = 0xFF;
 _Bool inverted;
 _Bool test;
 _Bool CH1Rly, CH2Rly, CH3Rly, CH4Rly, CH5Rly, CH6Rly, PWRORCOM = 0x0;
@@ -106,7 +108,7 @@ uint16_t count1;
 uint16_t countetTIM1 = 0;
 
 _Bool GBYP1, GBYP2, GBYP3, GBYP4, GBYP5, GBYP6;
-
+_Bool pointRorC = 1;
 uint8_t txSE[] = "SE";
 /* Variables Ends*/
  void dipSWR(void);
@@ -341,6 +343,29 @@ int main(void)
 		miscl &= ~(	HAL_GPIO_ReadPin(BATT_FAIL_GPIO_Port,BATT_FAIL_Pin) << 7); //bit 8 	
 		miscl &= ~(	HAL_GPIO_ReadPin(CONN_FAIL_GPIO_Port,CONN_FAIL_Pin) << 6); //bit 8 
 		miscl = (~miscl);
+		switch(pointRorC)
+    {
+    	case 1:
+				Cpymiscl = miscl;
+				Cpysensors = sensors;
+				pointRorC = 0;
+    		break;
+    	case 0:
+			if(Cpymiscl != miscl)
+			{
+				PERMENANTMUTE = 1; buzzorNO = 1;
+			}
+			
+			if(Cpysensors!= sensors)
+			{
+				PERMENANTMUTE = 1; buzzorNO = 1;
+			}
+			pointRorC = 1;
+    		break;
+    	default:
+    		break;
+    }
+
 		splitbytes.bit_32 = sensors;
 		if(slaveR == 'S')
 		{
@@ -371,7 +396,8 @@ int main(void)
 		{
 			HAL_Delay(1000);
 		}
-		
+		//if got change in  var disable permanent and mute.
+		//Cpymiscl = miscl;
 		trigger();
 		
   /* USER CODE END WHILE */
