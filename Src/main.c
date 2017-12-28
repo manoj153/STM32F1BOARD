@@ -326,6 +326,7 @@ int main(void)
 		
 		//Read AC-Fail A raw High is fail. So ~(LOW-BAD, HIGH Good)
 		miscl &= ~(	HAL_GPIO_ReadPin(AC_FAIL_GPIO_Port,AC_FAIL_Pin) << 7); //bit 8 
+		miscl &= ~(	HAL_GPIO_ReadPin(BATT_FAIL_GPIO_Port,BATT_FAIL_Pin) << 7); //bit 8 	
 		miscl &= ~(	HAL_GPIO_ReadPin(CONN_FAIL_GPIO_Port,CONN_FAIL_Pin) << 6); //bit 8 
 		miscl = (~miscl);
 		splitbytes.bit_32 = sensors;
