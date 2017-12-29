@@ -265,7 +265,7 @@ int main(void)
  
 		if(~(buzzorNO & PERMENANTMUTE)& 1) // Check if buzzer on/off, to delay
 		{
-			HAL_Delay(1000);
+			HAL_Delay(500);
 		}
 		trigger();
 		
@@ -713,6 +713,14 @@ void trigger(void)
 	else
 	{
 		CH6Rly = 0x01;
+		if((GBYP6) == 0x00)
+ 
+    {
+ 
+      CH6Rly = 0x00;
+ 
+    }
+
 		HAL_GPIO_WritePin(CH6G_6_GPIO_Port, CH6G_6_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH6-1 -> CH1-1
 		if((sensors >> 0) & 1)
@@ -764,6 +772,15 @@ void trigger(void)
 	else
 	{
 		CH5Rly = 0x01;
+		if((GBYP5) == 0x00)
+ 
+    {
+ 
+      CH5Rly = 0x00;
+ 
+    }
+ 
+
 		HAL_GPIO_WritePin(CH5G_5_GPIO_Port, CH5G_5_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH5-1 -> CH1-1
 		if((sensors >> 4) & 1)
@@ -816,6 +833,13 @@ void trigger(void)
 	else
 	{
 		CH4Rly = 0x01;
+		if((GBYP4) == 0x00)
+ 
+    {
+ 
+      CH4Rly = 0x00;
+ 
+    }
 		HAL_GPIO_WritePin(CH4G_4_GPIO_Port, CH4G_4_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH4-1 -> CH1-1
 		if((sensors >> 8) & 1)
@@ -869,6 +893,14 @@ void trigger(void)
 	else
 	{
 		CH3Rly = 0x01;
+		if((GBYP3) == 0x00)
+ 
+    {
+ 
+      CH3Rly = 0x00;
+ 
+    }
+ 
 		HAL_GPIO_WritePin(CH3G_3_GPIO_Port, CH3G_3_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH3-1 -> CH1-1
 		if((sensors >> 12) & 1)
@@ -921,6 +953,14 @@ void trigger(void)
 	else
 	{
 		CH2Rly = 0x01;
+		    if((GBYP2) == 0x00)
+ 
+    {
+ 
+      CH2Rly = 0x00;
+ 
+    }
+ 
 		HAL_GPIO_WritePin(CH2G_2_GPIO_Port, CH2G_2_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH2-1 -> CH1-1
 		if((sensors >> 16) & 1)
@@ -972,7 +1012,16 @@ void trigger(void)
 	}
 	else
 	{
+		
 		CH1Rly = 0x01;
+		if((GBYP1) == 0x00)
+ 
+    {
+ 
+      CH1Rly = 0x00;
+ 
+    }
+ 
 		HAL_GPIO_WritePin(CH1G_1_GPIO_Port, CH1G_1_Pin, GPIO_PIN_RESET);
 		//Each individual red led trigger CH1-1 -> CH1-1
 		if((sensors >> 20) & 1)
