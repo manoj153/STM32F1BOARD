@@ -1331,7 +1331,7 @@ void delayUS(uint32_t us)
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-	while(HAL_UART_Receive_IT(&huart2, rxdata, 7) != HAL_OK)
+	while(HAL_UART_Receive_IT(&huart2, rxdata, 8) != HAL_OK)
 	{
 		HAL_UART_Receive_IT(&huart2, rxdata, 8);
 		HAL_Delay(5);
