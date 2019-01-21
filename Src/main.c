@@ -116,7 +116,7 @@ uint8_t Cpymiscl = 0xFF;
 
 uint8_t txSE[] = "SE";
 //UART Receiving DATA variables
-uint8_t rxdata[8];
+volatile uint8_t rxdata[8];
 /* Variables Ends*/
  void dipSWR(void);
  union  
@@ -156,10 +156,13 @@ int main(void)
   MX_TIM1_Init();
 
   /* USER CODE BEGIN 2 */
+	
 	//UART TRANSMIT ON DE, (HIGH) LOW for Rx
 	//HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_RESET);
-	__HAL_UART_ENABLE_IT(&huart2, UART_IT_RXNE);
+	HAL_Delay(50);
+	HAL_UART_Receive_IT(&huart2, rxdata, 8);
+	//__HAL_UART_ENABLE_IT(&huart2, UART_IT_RXNE);
 	HAL_GPIO_WritePin(PWR_LED_GPIO_Port, PWR_LED_Pin, GPIO_PIN_SET);
 	for(int x = 0;x <2; x++)
   {
@@ -218,7 +221,7 @@ int main(void)
 			miscl = 	0x00;
 		}
 		HAL_Delay(500);
-		offallLED();
+		//offallLED();
 		switch(pointRorC)
  
     {
@@ -1281,13 +1284,6 @@ void delayUS(uint32_t us)
 	volatile uint32_t counter = 7*us;
 	while(counter--);
 }
- void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
- {
-	 if(huart2.Instance == USART2 )
-	 {
-		 
-	 }
- }
  
  void offallLED(){
 		
@@ -1332,7 +1328,20 @@ void delayUS(uint32_t us)
 		//HAL_GPIO_WritePin(PWR_LED_GPIO_Port, PWR_LED_Pin,GPIO_PIN_RESET);
 	}
  
-	
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	while(HAL_UART_Receive_IT(&huart2, rxdata, 7) != HAL_OK)
+	{
+		HAL_UART_Receive_IT(&huart2, rxdata, 8);
+		HAL_Delay(5);
+	}
+}
+
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+	HAL_UART_Receive_IT(&huart2, rxdata, 8);
+}
 	
 /* USER CODE END 4 */
 

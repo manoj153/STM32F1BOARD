@@ -191,6 +191,7 @@
   */
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+extern volatile uint8_t rxdata[8];
 /* Private function prototypes -----------------------------------------------*/
 /** @addtogroup UART_Private_Functions
   * @{
@@ -2424,9 +2425,31 @@ static HAL_StatusTypeDef UART_Receive_IT(UART_HandleTypeDef *huart)
     }
     else
     {
+      uint8_t data = (uint8_t)(huart->Instance->DR & 0xFF);
       if(huart->Init.Parity == UART_PARITY_NONE)
       {
-        *huart->pRxBuffPtr++ = (uint8_t)(huart->Instance->DR & (uint8_t)0x00FF);
+
+    	  if( (huart->pRxBuffPtr == rxdata) && ( data != 'S'  ) )
+    	          {
+
+    	          	huart->pRxBuffPtr = rxdata;
+    	          	*huart->pRxBuffPtr = 'X';
+    	          	huart->RxState = HAL_UART_STATE_READY;
+    	          	CLEAR_BIT(huart->Instance->CR1, (USART_CR1_RXNEIE | USART_CR1_PEIE));
+    	          	CLEAR_BIT(huart->Instance->CR3, USART_CR3_EIE);
+    	          	//__HAL_UART_FLUSH_DRREGISTER(huart);
+    	          	HAL_UART_Receive_IT(huart,rxdata,8);
+    	          	return HAL_BUSY;
+
+    	          }
+    	          else
+    	          {
+    	          *huart->pRxBuffPtr = data;
+    	          huart->pRxBuffPtr += 1U;
+    	          //*huart->pRxBuffPtr++ = (uint8_t)(huart->Instance->DR & (uint8_t)0x00FF);
+    	          }
+
+
       }
       else
       {
