@@ -161,7 +161,7 @@ int main(void)
 	//HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(RTS_GPIO_Port, RTS_Pin, GPIO_PIN_RESET);
 	HAL_Delay(50);
-	HAL_UART_Receive_IT(&huart2, rxdata, 8);
+	HAL_UART_Receive_IT(&huart2, rxdata, 7);
 	//__HAL_UART_ENABLE_IT(&huart2, UART_IT_RXNE);
 	HAL_GPIO_WritePin(PWR_LED_GPIO_Port, PWR_LED_Pin, GPIO_PIN_SET);
 	for(int x = 0;x <2; x++)
@@ -1331,16 +1331,16 @@ void delayUS(uint32_t us)
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-	while(HAL_UART_Receive_IT(&huart2, rxdata, 8) != HAL_OK)
+	while(HAL_UART_Receive_IT(&huart2, rxdata, 7) != HAL_OK)
 	{
-		HAL_UART_Receive_IT(&huart2, rxdata, 8);
+		HAL_UART_Receive_IT(&huart2, rxdata, 7);
 		HAL_Delay(5);
 	}
 }
 
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
-	HAL_UART_Receive_IT(&huart2, rxdata, 8);
+	HAL_UART_Receive_IT(&huart2, rxdata, 7);
 }
 	
 /* USER CODE END 4 */
