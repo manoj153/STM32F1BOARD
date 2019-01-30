@@ -2438,7 +2438,7 @@ static HAL_StatusTypeDef UART_Receive_IT(UART_HandleTypeDef *huart)
     	          	CLEAR_BIT(huart->Instance->CR1, (USART_CR1_RXNEIE | USART_CR1_PEIE));
     	          	CLEAR_BIT(huart->Instance->CR3, USART_CR3_EIE);
     	          	//__HAL_UART_FLUSH_DRREGISTER(huart);
-    	          	HAL_UART_Receive_IT(huart,rxdata,8);
+    	          	HAL_UART_Receive_IT(huart,rxdata,7);
     	          	return HAL_BUSY;
 
     	          }
