@@ -192,7 +192,7 @@ int main(void)
 		CH1Rly = 0x0; CH2Rly = 0x0; CH3Rly = 0x0; CH4Rly = 0x0; CH5Rly = 0x0;  CH6Rly = 0x0;
 		sensors 	=	0xFFFFFFFF;
 		miscl = 0xFF;
-		if((rxdata[0] == 'S' && rxdata[7] == 'E' ))
+		if((rxdata[0] == 'S' && rxdata[6] == 'E' ))
 		{
 			rxdata[0] = 'X';
 		for(uint8_t z =1; z <6; z++)
@@ -221,7 +221,7 @@ int main(void)
 			miscl = 	0x00;
 		}
 		HAL_Delay(500);
-		//offallLED();
+		offallLED();
 		switch(pointRorC)
  
     {
