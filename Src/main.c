@@ -206,12 +206,12 @@ int main(void)
 		sensors &= ~(rxdata[4] << 24);
 		miscl 	&= ~(rxdata[5]);
 		//extra 1 byte
-		GBYP1 =  (rxdata[6] >> 0)& 1; // ch1 
-		GBYP2 =  (rxdata[6] >> 1)& 1;
-		GBYP3 =  (rxdata[6] >> 2)& 1;
-		GBYP4 =  (rxdata[6] >> 3)& 1;
-		GBYP5 =  (rxdata[6] >> 4)& 1;
-		GBYP6 =  (rxdata[6] >> 5)& 1;
+		GBYP1 =   1; // ch1 
+		GBYP2 =   1;
+		GBYP3 =   1;
+		GBYP4 =   1;
+		GBYP5 =   1;
+		GBYP6 =   1;
 		}
 		else
 		{
